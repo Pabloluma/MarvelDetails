@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +86,9 @@ public class login extends AppCompatActivity {
             }
         });
 
+        //Decir si está bien formado o no
+
+
         bd.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -92,9 +96,13 @@ public class login extends AppCompatActivity {
                   String correos  = dataSnapshot.child("email").getValue().toString();
                    correo.add(correos);
                 }
-                if(con.length()<6){
+                if (cor.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
+                    Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
+                }
+
+                /*if(con.length()<6){
                     Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                }else{
+                }*/else{
                     if(correo.contains(cor)){
                         campoCorUsu.setError("Este correo ya existe");
                     }else{
@@ -108,8 +116,6 @@ public class login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
 
             @Override
