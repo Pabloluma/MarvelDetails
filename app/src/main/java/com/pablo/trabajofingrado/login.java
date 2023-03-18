@@ -99,9 +99,9 @@ public class login extends AppCompatActivity {
                     }
 
 
-                /*if(con.length()<6){
+                if(con.length()<6){
                     Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                }else{*/
+                }else{
                         if(correo.contains(cor)){
                             campoCorUsu.setError("Este correo ya existe");
                         }else{
@@ -115,7 +115,7 @@ public class login extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
                         }
                     }
-                //}
+                }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
