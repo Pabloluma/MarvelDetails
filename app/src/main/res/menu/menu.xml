@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nombre"
+        android:title="Huella"
+        android:icon="@drawable/baseline_fingerprint_24"/>
+    <group>
+        <item
+            android:id="@+id/ajustes"
+            android:title="Ajustes"
+            android:icon="@drawable/ajustes" />
+        <item
+            android:id="@+id/logout"
+            android:title="Log Out"
+            android:icon="@drawable/baseline_logout_24"/>
+    </group>
+
+</menu>
