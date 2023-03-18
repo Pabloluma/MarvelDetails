@@ -39,6 +39,7 @@ public class spiderman_item extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_home_24_white);
+        getSupportActionBar().setTitle("Spiderman");
 
         nombrePelis();
 

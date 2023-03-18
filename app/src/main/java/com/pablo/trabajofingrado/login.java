@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    EditText campoNomUsu,campoNombre,campoApellido,campoCorUsu,campoPasswd;
+    EditText campoNomUsu, campoNombre, campoApellido, campoCorUsu, campoPasswd;
     ArrayList<String> correo = new ArrayList<>();
     ArrayList<String> usuarios = new ArrayList<>();
     String usu = "";
@@ -41,6 +41,8 @@ public class login extends AppCompatActivity {
     User user;
     long num = 0;
     String correos;
+    FirebaseUser fUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,7 @@ public class login extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         auth = FirebaseAuth.getInstance();
+        fUser = auth.getCurrentUser();
         bd = FirebaseDatabase.getInstance().getReference().child("Usuarios");
         user = new User();
         campoNomUsu = findViewById(R.id.idUsuario);
@@ -60,7 +63,7 @@ public class login extends AppCompatActivity {
         bd.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     num = (snapshot.getChildrenCount());
                 }
             }
@@ -72,46 +75,54 @@ public class login extends AppCompatActivity {
         });
 
     }
-    public void alta(View v){
+
+    public void alta(View v) {
         usu = campoNomUsu.getText().toString().trim();
         nom = campoNombre.getText().toString().trim();
         ape = campoApellido.getText().toString().trim();
         cor = campoCorUsu.getText().toString().trim();
         con = campoPasswd.getText().toString().trim();
 
-        auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+//        auth.createUserWithEmailAndPassword(cor, con).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//           }
+//       });
 
-            }
-        });
 
-        //Decir si está bien formado o no
+        //Comprueba se está bien formado el correo electrónico
         if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
             Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
+
             bd.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        String correos  = dataSnapshot.child("email").getValue().toString();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        String correos = dataSnapshot.child("email").getValue().toString();
                         correo.add(correos);
                     }
 
-
-                if(con.length()<6){
-                    Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                }else{
-                        if(correo.contains(cor)){
+                    if (con.length() < 6) {
+                        Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (correo.contains(cor)) {
                             campoCorUsu.setError("Este correo ya existe");
-                        }else{
+                        } else {
+                            auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                }
+                            });
                             user.setUsername(usu);
                             user.setNombre(nom);
                             user.setApellido(ape);
                             user.setEmail(cor);
-                            //user.setContrasenia(con);
-                            bd.child(String.valueOf(num+1)).setValue(user);
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                           //user.setContrasenia(con);
+                            bd.child(String.valueOf(num + 1)).setValue(user);
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
                         }
                     }

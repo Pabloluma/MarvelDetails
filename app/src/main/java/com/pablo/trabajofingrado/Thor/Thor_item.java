@@ -41,8 +41,8 @@ public class Thor_item extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_home_24_white);
+        getSupportActionBar().setTitle("Thor");
 
         nombrePelis();
     }
@@ -50,8 +50,6 @@ public class Thor_item extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-//                startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-//                supportFinishAfterTransition();
                 finish();
                 return true;
         }
