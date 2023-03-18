@@ -95,7 +95,6 @@ public class login extends AppCompatActivity {
         if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
             Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
         } else {
-
             bd.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -133,7 +132,6 @@ public class login extends AppCompatActivity {
 
                 }
             });
-
         }
 
 
