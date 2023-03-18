@@ -87,42 +87,45 @@ public class login extends AppCompatActivity {
         });
 
         //Decir si está bien formado o no
+        if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
+            Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
+        }else{
+            bd.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        String correos  = dataSnapshot.child("email").getValue().toString();
+                        correo.add(correos);
+                    }
 
-
-        bd.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                  String correos  = dataSnapshot.child("email").getValue().toString();
-                   correo.add(correos);
-                }
-                if (cor.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
-                    Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
-                }
 
                 /*if(con.length()<6){
                     Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                }*/else{
-                    if(correo.contains(cor)){
-                        campoCorUsu.setError("Este correo ya existe");
-                    }else{
-                        user.setUsername(usu);
-                        user.setNombre(nom);
-                        user.setApellido(ape);
-                        user.setEmail(cor);
-                        //user.setContrasenia(con);
-                        bd.child(String.valueOf(num+1)).setValue(user);
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
+                }else{*/
+                        if(correo.contains(cor)){
+                            campoCorUsu.setError("Este correo ya existe");
+                        }else{
+                            user.setUsername(usu);
+                            user.setNombre(nom);
+                            user.setApellido(ape);
+                            user.setEmail(cor);
+                            //user.setContrasenia(con);
+                            bd.child(String.valueOf(num+1)).setValue(user);
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                //}
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        }
 
-            }
-        });
+
 
         /*DB admin = new DB(this, "Bases", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
