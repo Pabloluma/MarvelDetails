@@ -154,6 +154,13 @@ public class temaspelisGoogle extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nombre:
+                        Intent intent2 = getIntent();
+                        int opcion = intent2.getIntExtra("opcion", -1);
+                        if(opcion == 2){
+                            Intent in = new Intent(getApplicationContext(), account.class);
+                            in.putExtra("usuario",nombre);
+                            startActivity(in);
+                        }
                         break;
 
                     case R.id.ajustes:
