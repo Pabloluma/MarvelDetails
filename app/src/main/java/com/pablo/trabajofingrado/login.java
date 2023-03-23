@@ -100,14 +100,19 @@ public class login extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         String correos = dataSnapshot.child("email").getValue().toString();
-                        correo.add(correos);
+                        if(correos != null){
+                            correo.add(correos);
+                        }else{
+                            break;
+                        }
                     }
 
                     if (con.length() < 6) {
                         Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
                     } else {
                         if (correo.contains(cor)) {
-                            campoCorUsu.setError("Este correo ya existe");
+                            Toast.makeText(login.this, "Este correo ya existe", Toast.LENGTH_SHORT).show();
+//                            campoCorUsu.setError("Este correo ya existe");
                         } else {
                             auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
