@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 
 public class account extends AppCompatActivity {
     DatabaseReference db;
+    DatabaseReference bd;
     String usename = "";
     String name = "";
     String mail = "";
@@ -39,7 +41,7 @@ public class account extends AppCompatActivity {
     Button boton;
     int PICK_IMAGE_REQUEST = 1;
     FirebaseStorage mStorage;
-    StorageReference storageRef;
+    StorageReference folder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,8 @@ public class account extends AppCompatActivity {
         imageView = findViewById(R.id.imPerfil);
         boton = findViewById(R.id.botonAcept);
         mStorage = FirebaseStorage.getInstance();
-        storageRef = mStorage.getReference().child("FotoUsuario");
+        folder = mStorage.getReference().child("feo");
+        bd = FirebaseDatabase.getInstance().getReference("Enlaces");
         Bundle bundle = getIntent().getExtras();
         String nomUsu = bundle.getString("usuario");
         Query query = db.orderByChild("username").equalTo(nomUsu);
@@ -95,33 +98,30 @@ public class account extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
-            Uri uri = data.getData();
-            StorageReference filepath = storageRef.child(uri.getLastPathSegment());
-
-
-            filepath.putFile(uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri1 -> {
+            Uri file_uri = data.getData();
+            StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
+            filepath.putFile(file_uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
                 HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("link",String.valueOf(uri1));
+                hashMap.put("Link", String.valueOf(uri));
                 System.out.println(hashMap);
-
-
-
-
-
+                bd.setValue(hashMap);
+                Glide.with(this).load(file_uri).into(imageView);
+                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }));
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+            /*filepath.putFile(file_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(account.this, "Imagen subida", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     //Error al cargar la imagen
-                    Toast.makeText(account.this, "error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
 
                 }
-            });
+            });*/
         }
 
     }
