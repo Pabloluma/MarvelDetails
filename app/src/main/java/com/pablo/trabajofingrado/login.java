@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class login extends AppCompatActivity {
     EditText campoNomUsu, campoNombre, campoApellido, campoCorUsu, campoPasswd;
@@ -124,8 +125,10 @@ public class login extends AppCompatActivity {
                             user.setNombre(nom);
                             user.setApellido(ape);
                             user.setEmail(cor);
+                            user.setPerfil("");
                            //user.setContrasenia(con);
                             bd.child(String.valueOf(num + 1)).setValue(user);
+                            System.out.println("verificado: " + Objects.requireNonNull(auth.getCurrentUser()).isEmailVerified());
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
                         }

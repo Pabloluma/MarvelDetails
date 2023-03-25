@@ -7,17 +7,19 @@ public class User {
     public String apellido;
     public String email;
     public String contrasenia;
+    private String perfil;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String nombre, String apellido, String email, String contrasenia) {
+    public User(String username, String nombre, String apellido, String email, String contrasenia, String perfil) {
         this.username = username;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.contrasenia = contrasenia;
+        this.perfil = perfil;
     }
 
     public String getUsername() {
@@ -58,5 +60,13 @@ public class User {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 }

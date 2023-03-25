@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class account extends AppCompatActivity {
     DatabaseReference db;
@@ -34,6 +36,8 @@ public class account extends AppCompatActivity {
     String usename = "";
     String name = "";
     String mail = "";
+    String perfil = "";
+    String perfil2 = "";
     EditText usuario;
     ImageView imageView;
     EditText nombre;
@@ -42,6 +46,12 @@ public class account extends AppCompatActivity {
     int PICK_IMAGE_REQUEST = 1;
     FirebaseStorage mStorage;
     StorageReference folder;
+    String nomUsu;
+    Query query;
+    FirebaseAuth myauth;
+    String dataKey;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +65,16 @@ public class account extends AppCompatActivity {
         boton = findViewById(R.id.botonAcept);
         mStorage = FirebaseStorage.getInstance();
         folder = mStorage.getReference().child("feo");
-        bd = FirebaseDatabase.getInstance().getReference("Enlaces");
+        bd = FirebaseDatabase.getInstance().getReference("Usuarios");
+        myauth = FirebaseAuth.getInstance();
+        System.out.println("Hola " + myauth.getUid());
+        System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
+        System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getEmail());
+        System.out.println("verificado: " + Objects.requireNonNull(myauth.getCurrentUser()).isEmailVerified());
+
         Bundle bundle = getIntent().getExtras();
-        String nomUsu = bundle.getString("usuario");
-        Query query = db.orderByChild("username").equalTo(nomUsu);
+        /*String*/ nomUsu = bundle.getString("usuario");
+        /*Query*/ query = db.orderByChild("username").equalTo(nomUsu);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -66,9 +82,16 @@ public class account extends AppCompatActivity {
                     usename = dataSnapshot.child("username").getValue().toString();
                     name = dataSnapshot.child("nombre").getValue().toString();
                     mail = dataSnapshot.child("email").getValue().toString();
+                    perfil = dataSnapshot.child("perfil").getValue().toString();
+                    System.out.println("Valor" + perfil);
+                    if(!perfil.equals("")){
+                        Glide.with(account.this).load(perfil).into(imageView);
+                    }
                     usuario.setText(usename);
                     nombre.setText(name);
                     correo.setText(mail);
+                    dataKey = dataSnapshot.getKey();
+                    System.out.println("DataSnapshot: " + dataKey);
                 }
             }
 
@@ -77,6 +100,7 @@ public class account extends AppCompatActivity {
 
             }
         });
+
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,9 +127,9 @@ public class account extends AppCompatActivity {
             filepath.putFile(file_uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("Link", String.valueOf(uri));
-                System.out.println(hashMap);
-                bd.setValue(hashMap);
-                Glide.with(this).load(file_uri).into(imageView);
+                DatabaseReference parent =  bd.child(dataKey).child("perfil");
+                parent.setValue(file_uri);
+                //bd.setValue(hashMap);
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }));
 
