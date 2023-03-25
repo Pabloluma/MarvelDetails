@@ -32,7 +32,6 @@ import java.util.Objects;
 
 public class account extends AppCompatActivity {
     DatabaseReference db;
-    DatabaseReference bd;
     String usename = "";
     String name = "";
     String mail = "";
@@ -65,7 +64,6 @@ public class account extends AppCompatActivity {
         boton = findViewById(R.id.botonAcept);
         mStorage = FirebaseStorage.getInstance();
         folder = mStorage.getReference().child("feo");
-        bd = FirebaseDatabase.getInstance().getReference("Usuarios");
         myauth = FirebaseAuth.getInstance();
         System.out.println("Hola " + myauth.getUid());
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
@@ -127,9 +125,9 @@ public class account extends AppCompatActivity {
             filepath.putFile(file_uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("Link", String.valueOf(uri));
-                DatabaseReference parent =  bd.child(dataKey).child("perfil");
-                parent.setValue(file_uri);
-                //bd.setValue(hashMap);
+                /*DatabaseReference parent =  bd.child(dataKey).child("perfil");
+                parent.setValue(file_uri);*/
+                db.setValue(hashMap);
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }));
 
