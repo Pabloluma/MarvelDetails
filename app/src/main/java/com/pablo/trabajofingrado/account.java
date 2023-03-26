@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -36,7 +42,6 @@ public class account extends AppCompatActivity {
     String name = "";
     String mail = "";
     String perfil = "";
-    String perfil2 = "";
     EditText usuario;
     ImageView imageView;
     EditText nombre;
@@ -69,6 +74,8 @@ public class account extends AppCompatActivity {
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getEmail());
         System.out.println("verificado: " + Objects.requireNonNull(myauth.getCurrentUser()).isEmailVerified());
+        System.out.println("verificado: " + myauth.getCurrentUser().getPhotoUrl());
+
 
         Bundle bundle = getIntent().getExtras();
         /*String*/ nomUsu = bundle.getString("usuario");
@@ -82,12 +89,13 @@ public class account extends AppCompatActivity {
                     mail = dataSnapshot.child("email").getValue().toString();
                     perfil = dataSnapshot.child("perfil").getValue().toString();
                     System.out.println("Valor" + perfil);
-                    if(!perfil.equals("")){
+                    /*if(!perfil.equals("")){
                         Glide.with(account.this).load(perfil).into(imageView);
-                    }
+                    }*/
                     usuario.setText(usename);
                     nombre.setText(name);
                     correo.setText(mail);
+                    Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
                     dataKey = dataSnapshot.getKey();
                     System.out.println("DataSnapshot: " + dataKey);
                 }
@@ -98,7 +106,7 @@ public class account extends AppCompatActivity {
 
             }
         });
-
+        //Glide.with(account.this).load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,13 +129,35 @@ public class account extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
             Uri file_uri = data.getData();
+            //imageView.setImageURI(file_uri);
             StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
+            System.out.println(file_uri);
+            System.out.println(filepath);
+
             filepath.putFile(file_uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("Link", String.valueOf(uri));
+                System.out.println(hashMap);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setPhotoUri(uri)
+                        .build();
+
+
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
+                                    Toast.makeText(account.this, "User profile updated.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                 /*DatabaseReference parent =  bd.child(dataKey).child("perfil");
                 parent.setValue(file_uri);*/
-                db.setValue(hashMap);
+                //db.setValue(hashMap);
+
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }));
 
