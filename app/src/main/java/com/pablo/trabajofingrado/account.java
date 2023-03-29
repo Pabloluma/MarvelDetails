@@ -70,11 +70,11 @@ public class account extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance();
         folder = mStorage.getReference().child("feo");
         myauth = FirebaseAuth.getInstance();
-        System.out.println("Hola " + myauth.getUid());
+       /*System.out.println("Hola " + myauth.getUid());
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getEmail());
         System.out.println("verificado: " + Objects.requireNonNull(myauth.getCurrentUser()).isEmailVerified());
-        System.out.println("verificado: " + myauth.getCurrentUser().getPhotoUrl());
+        System.out.println("verificado: " + myauth.getCurrentUser().getPhotoUrl());*/
 
 
         Bundle bundle = getIntent().getExtras();
@@ -87,15 +87,19 @@ public class account extends AppCompatActivity {
                     usename = dataSnapshot.child("username").getValue().toString();
                     name = dataSnapshot.child("nombre").getValue().toString();
                     mail = dataSnapshot.child("email").getValue().toString();
-                    perfil = dataSnapshot.child("perfil").getValue().toString();
-                    System.out.println("Valor" + perfil);
+
                     /*if(!perfil.equals("")){
                         Glide.with(account.this).load(perfil).into(imageView);
                     }*/
                     usuario.setText(usename);
                     nombre.setText(name);
                     correo.setText(mail);
-                    Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
+                    if(myauth.getCurrentUser().getPhotoUrl() == null){
+                        imageView.setImageResource(R.drawable.baseline_account_circle_24);
+                    }else{
+                        Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
+
+                    }
                     dataKey = dataSnapshot.getKey();
                     System.out.println("DataSnapshot: " + dataKey);
                 }
@@ -129,7 +133,6 @@ public class account extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
             Uri file_uri = data.getData();
-            //imageView.setImageURI(file_uri);
             StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
             System.out.println(file_uri);
             System.out.println(filepath);
@@ -150,7 +153,7 @@ public class account extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
-                                    Toast.makeText(account.this, "User profile updated.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(account.this, "Se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

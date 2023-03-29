@@ -52,7 +52,7 @@ public class login extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         auth = FirebaseAuth.getInstance();
         fUser = auth.getCurrentUser();
-        bd = FirebaseDatabase.getInstance().getReference().child("Usuarios");
+        bd = FirebaseDatabase.getInstance().getReference("Usuarios");
         user = new User();
         campoNomUsu = findViewById(R.id.idUsuario);
         campoNombre = findViewById(R.id.idNombre);
@@ -91,47 +91,52 @@ public class login extends AppCompatActivity {
 //           }
 //       });
 
-
-        //Comprueba se está bien formado el correo electrónico
-        if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
-            Toast.makeText(login.this, "Pon una direccion de correo electrónico", Toast.LENGTH_SHORT).show();
+        if (usu.isEmpty() || nom.isEmpty() || ape.isEmpty() || cor.isEmpty() || con.isEmpty()) {
+            Toast.makeText(login.this, "Debes rellenar Todos los campos", Toast.LENGTH_SHORT).show();
         } else {
-            bd.addValueEventListener(new ValueEventListener() {
+            if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
+                Toast.makeText(login.this, "Pon una direccion de correo electrónico Válida", Toast.LENGTH_SHORT).show();
+            }
+            Query queryCor = bd.orderByChild("email").equalTo(cor);
+            queryCor.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        String correos = dataSnapshot.child("email").getValue().toString();
-                        if(correos != null){
-                            correo.add(correos);
-                        }else{
-                            break;
-                        }
-                    }
-
-                    if (con.length() < 6) {
-                        Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+                    if (snapshot.exists()) {
+                        Toast.makeText(login.this, "El correo ya existe", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (correo.contains(cor)) {
-                            Toast.makeText(login.this, "Este correo ya existe", Toast.LENGTH_SHORT).show();
-//                            campoCorUsu.setError("Este correo ya existe");
-                        } else {
-                            auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                        Query queryUser = bd.orderByChild("username").equalTo(usu);
+                        queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Toast.makeText(login.this, "El Usuario ya existe", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (con.length() < 6) {
+                                        Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
 
+                                            }
+                                        });
+                                        user.setUsername(usu);
+                                        user.setNombre(nom);
+                                        user.setApellido(ape);
+                                        user.setEmail(cor);
+                                        //user.setContrasenia(con);
+                                        bd.child(String.valueOf(num + 1)).setValue(user);
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            });
-                            user.setUsername(usu);
-                            user.setNombre(nom);
-                            user.setApellido(ape);
-                            user.setEmail(cor);
-                            user.setPerfil("");
-                           //user.setContrasenia(con);
-                            bd.child(String.valueOf(num + 1)).setValue(user);
-                            System.out.println("verificado: " + Objects.requireNonNull(auth.getCurrentUser()).isEmailVerified());
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
-                        }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
 
@@ -141,54 +146,5 @@ public class login extends AppCompatActivity {
                 }
             });
         }
-
-
-
-        /*DB admin = new DB(this, "Bases", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        String nomUsu = campoNomUsu.getText().toString();
-        String nombreUsu = campoNombre.getText().toString();
-        String apeUsu = campoApellido.getText().toString();
-        String CorUsu = campoCorUsu.getText().toString();
-        String passwdUsu = campoPasswd.getText().toString();
-        if(bd!=null) {
-            Cursor cursor = bd.rawQuery("SELECT NombreUsuario,Correo FROM Usuarios", null);
-            while (cursor.moveToNext()) {
-                usuarios.add(cursor.getString(0));
-                correo.add(cursor.getString(1));
-                System.out.println(usuarios);
-                System.out.println(correo);
-            }
-            cursor.close();
-            if (correo.contains(CorUsu)) {
-                Toast.makeText(this, "El Correo ya esta registrado", Toast.LENGTH_LONG).show();
-            }else if(usuarios.contains(nomUsu)) {
-                Toast.makeText(this, "El nombre de usuario ya está registrado en la base de datos", Toast.LENGTH_LONG).show();
-            }else if(correo.contains(CorUsu)&& usuarios.contains(nomUsu)){
-                Toast.makeText(this, "El Correo y el nombre de usuario ya esta registrado", Toast.LENGTH_LONG).show();
-            }else if(nomUsu.equals("")||nombreUsu.equals("")||apeUsu.equals("")||CorUsu.equals("")||passwdUsu.equals("")){
-                Toast.makeText(this, "Tienes que rellenar todos los campos", Toast.LENGTH_LONG).show();
-            }else{
-                ContentValues registro = new ContentValues();
-                registro.put("NombreUsuario", nomUsu);
-                registro.put("Nombre", nombreUsu);
-                registro.put("Apellido", apeUsu);
-                registro.put("Correo", CorUsu);
-                registro.put("contrasenia", passwdUsu);
-                bd.insert("Usuarios", null, registro);
-                bd.close();
-                campoNomUsu.setText("");
-                campoNombre.setText("");
-                campoApellido.setText("");
-                campoCorUsu.setText("");
-                campoPasswd.setText("");
-                Toast.makeText(this,"Se han guardado los datos", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(), MainActivity.class );
-                startActivity(intent);
-            }
-        }else {
-            Toast.makeText(login.this, "ERROR AL CREAR LA BASE DE DATOS", Toast.LENGTH_LONG).show();
-        }*/
-
     }
 }
