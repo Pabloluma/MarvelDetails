@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class login extends AppCompatActivity {
     EditText campoNomUsu, campoNombre, campoApellido, campoCorUsu, campoPasswd;
@@ -83,6 +84,7 @@ public class login extends AppCompatActivity {
         ape = campoApellido.getText().toString().trim();
         cor = campoCorUsu.getText().toString().trim();
         con = campoPasswd.getText().toString().trim();
+        String corr = cor.toLowerCase();
 
 //        auth.createUserWithEmailAndPassword(cor, con).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
 //            @Override
@@ -97,7 +99,7 @@ public class login extends AppCompatActivity {
             if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
                 Toast.makeText(login.this, "Pon una direccion de correo electrónico Válida", Toast.LENGTH_SHORT).show();
             }
-            Query queryCor = bd.orderByChild("email").equalTo(cor);
+            Query queryCor = bd.orderByChild("email").equalTo(corr);
             queryCor.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -114,7 +116,7 @@ public class login extends AppCompatActivity {
                                     if (con.length() < 6) {
                                         Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        auth.createUserWithEmailAndPassword(cor,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        auth.createUserWithEmailAndPassword(corr,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -123,7 +125,7 @@ public class login extends AppCompatActivity {
                                         user.setUsername(usu);
                                         user.setNombre(nom);
                                         user.setApellido(ape);
-                                        user.setEmail(cor);
+                                        user.setEmail(corr);
                                         //user.setContrasenia(con);
                                         bd.child(String.valueOf(num + 1)).setValue(user);
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
