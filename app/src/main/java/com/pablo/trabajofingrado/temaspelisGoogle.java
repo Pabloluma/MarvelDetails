@@ -163,8 +163,8 @@ public class temaspelisGoogle extends AppCompatActivity {
                         }
                         break;
 
-                    case R.id.ajustes:
-                        break;
+//                    case R.id.ajustes:
+//                        break;
 
                     case R.id.logout:
                         finish();

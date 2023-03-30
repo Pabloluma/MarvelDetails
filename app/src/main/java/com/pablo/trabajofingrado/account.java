@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,6 +48,7 @@ public class account extends AppCompatActivity {
     EditText nombre;
     EditText correo;
     Button boton;
+    Button botonModificar;
     int PICK_IMAGE_REQUEST = 1;
     FirebaseStorage mStorage;
     StorageReference folder;
@@ -61,12 +63,22 @@ public class account extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
+        getSupportActionBar().setTitle("Mi perfil");
         db = FirebaseDatabase.getInstance().getReference("Usuarios");
         usuario = findViewById(R.id.usufield);
         nombre = findViewById(R.id.nombrefield);
         correo = findViewById(R.id.correofield);
         imageView = findViewById(R.id.imPerfil);
         boton = findViewById(R.id.botonAcept);
+        botonModificar = findViewById(R.id.botonModificar);
+        usuario.setEnabled(false);
+        nombre.setEnabled(false);
+        correo.setEnabled(false);
+        imageView.setEnabled(false);
+
+
         mStorage = FirebaseStorage.getInstance();
         folder = mStorage.getReference().child("feo");
         myauth = FirebaseAuth.getInstance();
@@ -94,6 +106,7 @@ public class account extends AppCompatActivity {
                     usuario.setText(usename);
                     nombre.setText(name);
                     correo.setText(mail);
+
                     if(myauth.getCurrentUser().getPhotoUrl() == null){
                         imageView.setImageResource(R.drawable.baseline_account_circle_24);
                     }else{
@@ -118,6 +131,30 @@ public class account extends AppCompatActivity {
                 finish();
             }
         });
+        botonModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String valorBoton = botonModificar.getText().toString();
+                switch (valorBoton){
+                    case "Modificar":
+                        usuario.setEnabled(true);
+                        nombre.setEnabled(true);
+                        correo.setEnabled(true);
+                        imageView.setEnabled(true);
+                        botonModificar.setText("Aplicar");
+                        break;
+                    case "Aplicar":
+                        usuario.setEnabled(false);
+                        nombre.setEnabled(false);
+                        correo.setEnabled(false);
+                        imageView.setEnabled(false);
+                        botonModificar.setText("Modificar");
+                        break;
+                }
+            }
+        });
+
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +170,8 @@ public class account extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
             Uri file_uri = data.getData();
-            StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
+            //StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
+            StorageReference filepath = folder.child(myauth.getUid());
             System.out.println(file_uri);
             System.out.println(filepath);
 

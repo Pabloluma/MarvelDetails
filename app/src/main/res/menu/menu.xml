@@ -7,15 +7,11 @@
         android:id="@+id/nombre"
         android:title="Huella"
         android:icon="@drawable/baseline_fingerprint_24"/>
-    <group>
-        <item
-            android:id="@+id/ajustes"
-            android:title="Ajustes"
-            android:icon="@drawable/ajustes" />
+
         <item
             android:id="@+id/logout"
             android:title="Log Out"
             android:icon="@drawable/baseline_logout_24"/>
-    </group>
+
 
 </menu>
