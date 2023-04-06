@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/nombre"
-        android:title="Huella"
-        android:icon="@drawable/baseline_fingerprint_24"/>
+        android:icon="@drawable/baseline_fingerprint_24"
+        android:title="Huella" />
 
-        <item
-            android:id="@+id/logout"
-            android:title="Log Out"
-            android:icon="@drawable/baseline_logout_24"/>
+    <item
+        android:id="@+id/aviso"
+        android:title="Aviso Legal"/>
 
-
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/baseline_logout_24"
+        android:title="Log Out" />
 </menu>

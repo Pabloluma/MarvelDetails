@@ -163,8 +163,9 @@ public class temaspelisGoogle extends AppCompatActivity {
                         }
                         break;
 
-//                    case R.id.ajustes:
-//                        break;
+                    case R.id.aviso:
+                        startActivity(new Intent(temaspelisGoogle.this,aviso_legal.class));
+                        break;
 
                     case R.id.logout:
                         finish();
