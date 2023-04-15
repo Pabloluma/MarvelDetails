@@ -8,9 +8,7 @@
         android:icon="@drawable/baseline_fingerprint_24"
         android:title="Huella" />
 
-    <item
-        android:id="@+id/aviso"
-        android:title="Aviso Legal"/>
+
 
     <item
         android:id="@+id/logout"

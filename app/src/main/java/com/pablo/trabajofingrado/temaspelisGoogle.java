@@ -65,6 +65,7 @@ public class temaspelisGoogle extends AppCompatActivity {
     String nombre = "";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    NavigationView navigationView2;
 
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
@@ -110,6 +111,8 @@ public class temaspelisGoogle extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigation);
+        navigationView2 = findViewById(R.id.navigation2);
+
         Intent intent2 = getIntent();
         int opcion = intent2.getIntExtra("opcion", -1);
         if (opcion == 0){
@@ -180,6 +183,22 @@ public class temaspelisGoogle extends AppCompatActivity {
                 return true;
             }
         });
+
+        navigationView2.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.aviso:
+                        startActivity(new Intent(temaspelisGoogle.this,aviso_legal.class));
+                        break;
+                    default:
+                        break;
+                }
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+
     }
 
     public void sacarNombrePersonajes(){
@@ -234,9 +253,9 @@ public class temaspelisGoogle extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if(drawerLayout.isOpen()){
-                    drawerLayout.closeDrawer(navigationView);
+                    drawerLayout.closeDrawers();
                 }else{
-                    drawerLayout.openDrawer(navigationView);
+                    drawerLayout.open();
                 }
                 return true;
         }

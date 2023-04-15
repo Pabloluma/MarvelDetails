@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
+        //getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         myauth = FirebaseAuth.getInstance();
         //instancia de los elementos de la vista
         boton = findViewById(R.id.botoncrear);
