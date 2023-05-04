@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class account extends AppCompatActivity {
     EditText nombre;
     EditText correo;
     Button boton;
-    Button botonModificar;
     int PICK_IMAGE_REQUEST = 1;
     FirebaseStorage mStorage;
     StorageReference folder;
@@ -66,21 +66,21 @@ public class account extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
         getSupportActionBar().setTitle("Mi perfil");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = FirebaseDatabase.getInstance().getReference("Usuarios");
         usuario = findViewById(R.id.usufield);
         nombre = findViewById(R.id.nombrefield);
         correo = findViewById(R.id.correofield);
         imageView = findViewById(R.id.imPerfil);
         boton = findViewById(R.id.botonAcept);
-        botonModificar = findViewById(R.id.botonModificar);
         usuario.setEnabled(false);
         nombre.setEnabled(false);
         correo.setEnabled(false);
-        imageView.setEnabled(false);
+        imageView.setEnabled(true);
 
 
         mStorage = FirebaseStorage.getInstance();
-        folder = mStorage.getReference().child("feo");
+        folder = mStorage.getReference().child("fotoPerfil");
         myauth = FirebaseAuth.getInstance();
        /*System.out.println("Hola " + myauth.getUid());
         System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
@@ -100,9 +100,6 @@ public class account extends AppCompatActivity {
                     name = dataSnapshot.child("nombre").getValue().toString();
                     mail = dataSnapshot.child("email").getValue().toString();
 
-                    /*if(!perfil.equals("")){
-                        Glide.with(account.this).load(perfil).into(imageView);
-                    }*/
                     usuario.setText(usename);
                     nombre.setText(name);
                     correo.setText(mail);
@@ -123,34 +120,11 @@ public class account extends AppCompatActivity {
 
             }
         });
-        //Glide.with(account.this).load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-        botonModificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String valorBoton = botonModificar.getText().toString();
-                switch (valorBoton){
-                    case "Modificar":
-                        usuario.setEnabled(true);
-                        nombre.setEnabled(true);
-                        correo.setEnabled(true);
-                        imageView.setEnabled(true);
-                        botonModificar.setText("Aplicar");
-                        break;
-                    case "Aplicar":
-                        usuario.setEnabled(false);
-                        nombre.setEnabled(false);
-                        correo.setEnabled(false);
-                        imageView.setEnabled(false);
-                        botonModificar.setText("Modificar");
-                        break;
-                }
             }
         });
 
@@ -164,6 +138,15 @@ public class account extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -195,26 +178,7 @@ public class account extends AppCompatActivity {
                                 }
                             }
                         });
-                /*DatabaseReference parent =  bd.child(dataKey).child("perfil");
-                parent.setValue(file_uri);*/
-                //db.setValue(hashMap);
-
-                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             }));
-
-            /*filepath.putFile(file_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //Error al cargar la imagen
-                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-
-                }
-            });*/
         }
 
     }

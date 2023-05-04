@@ -5,6 +5,7 @@ import static android.os.Environment.DIRECTORY_MOVIES;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -25,9 +26,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pablo.trabajofingrado.AdapterActores;
+import com.pablo.trabajofingrado.DatosActores;
 import com.pablo.trabajofingrado.R;
 
+import java.util.ArrayList;
+
 public class CAInfo extends AppCompatActivity {
+    ArrayList<DatosActores> listaActoresCA = new ArrayList<>();
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     StorageReference reference;
@@ -55,6 +61,7 @@ public class CAInfo extends AppCompatActivity {
 
         insertar();
 
+        actoresCA();
         botondesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,8 +73,6 @@ public class CAInfo extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                /*startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-                supportFinishAfterTransition();*/
                 finish();
                 return true;
         }
@@ -163,7 +168,25 @@ public class CAInfo extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void actoresCA(){
+        Intent intent = getIntent();
+        int elemento = intent.getIntExtra("estado", -1);
+        if(elemento >= 0){
+            Bundle bundle = getIntent().getExtras();
+            String[] listasActor = bundle.getStringArray("listaActor");
+            String[] listasPers = bundle.getStringArray("listaPer");
+            ArrayList<Integer> listasPerso = bundle.getIntegerArrayList("fotosActores");
 
-
+            for (int i = 0; i < listasActor.length; i++) {
+                DatosActores objeto = new DatosActores(listasActor[i],listasPers[i], listasPerso.get(i));
+                listaActoresCA.add(objeto);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerActores);
+                AdapterActores adapter = new AdapterActores(listaActoresCA);
+                recyclerView.setAdapter(adapter);
+            }
+        }else{
+            Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
+        }
     }
 }

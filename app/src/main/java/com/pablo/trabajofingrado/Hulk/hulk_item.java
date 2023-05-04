@@ -20,6 +20,7 @@ import com.pablo.trabajofingrado.R;
 
 import com.pablo.trabajofingrado.Hulk.MiAdapterHulk;
 import com.pablo.trabajofingrado.Hulk.HulkInfo;
+import com.pablo.trabajofingrado.Thor.Thor_item;
 import com.pablo.trabajofingrado.temaspelisGoogle;
 
 
@@ -32,6 +33,9 @@ public class hulk_item extends AppCompatActivity {
     ArrayList<String> sinop = new ArrayList<>();
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> duraciones = new ArrayList<>();
+    ArrayList <String[]> actoresSep = new ArrayList<>();
+    ArrayList <String[]> personajesSep = new ArrayList<>();
+    ArrayList<Integer> imagenActor = new ArrayList<>();
     DatosHulk[] listaPelis = new DatosHulk[2];
     static int elementoHulk = 0;
     @Override
@@ -66,6 +70,14 @@ public class hulk_item extends AppCompatActivity {
                         String anyo = ds.child("anio").getValue().toString();
                         String descrip = ds.child("descripcion").getValue().toString();
                         String duracion = ds.child("duracion").getValue().toString();
+                        String actor = ds.child("actor").getValue().toString();
+                        String[] ac = actor.split(",");
+                        String personaje = ds.child("personaje").getValue().toString();
+                        String[] perso = personaje.split(",");
+
+                        hulk_item.this.actoresSep.add(ac);
+                        hulk_item.this.personajesSep.add(perso);
+                       
                         hulk_item.this.nombres.add(nombre);
                         hulk_item.this.anios.add(anyo);
                         hulk_item.this.sinop.add(descrip);
@@ -95,6 +107,15 @@ public class hulk_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(0));
                                     intent.putExtra("sinopsis", sinop.get(0));
                                     intent.putExtra("duracion", duraciones.get(0));
+                                    intent.putExtra("listaActor", actoresSep.get(0));
+                                    intent.putExtra("listaPer", personajesSep.get(0));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.sam_elliot);
+                                    imagenActor.add(R.drawable.eric_bana);
+                                    imagenActor.add(R.drawable.nick_nolte);
+                                    imagenActor.add(R.drawable.jennifer_connelly);
+                                    imagenActor.add(R.drawable.josh_lucas);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 1:
@@ -105,12 +126,25 @@ public class hulk_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(1));
                                     intent.putExtra("sinopsis", sinop.get(1));
                                     intent.putExtra("duracion", duraciones.get(1));
+                                    intent.putExtra("listaActor", actoresSep.get(1));
+                                    intent.putExtra("listaPer", personajesSep.get(1));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.william_hurt);
+                                    imagenActor.add(R.drawable.edwart_noton);
+                                    imagenActor.add(R.drawable.liv_tyler);
+                                    imagenActor.add(R.drawable.tim_roth);
+                                    imagenActor.add(R.drawable.tim_blake);
+                                    imagenActor.add(R.drawable.ty_burrell);
+                                    imagenActor.add(R.drawable.christina_cabot);
+                                    imagenActor.add(R.drawable.peter_mensah);
+                                    imagenActor.add(R.drawable.lou_ferrigno);
+                                    imagenActor.add(R.drawable.paul_soles);
+                                    imagenActor.add(R.drawable.debora_nascimiento);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
 
                             }
-                            /*System.out.println(recyclerView.getChildAdapterPosition(v));
-                            Toast.makeText(getApplicationContext(),"Seleccion: " + listaPelis[recyclerView.getChildAdapterPosition(v)].getNombre(),Toast.LENGTH_LONG).show();*/
                         }
                     });
 

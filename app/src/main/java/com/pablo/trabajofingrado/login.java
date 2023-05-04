@@ -62,6 +62,7 @@ public class login extends AppCompatActivity {
         campoPasswd = findViewById(R.id.idPasswd);
         Button boton = findViewById(R.id.buttonreg);
 
+
         bd.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

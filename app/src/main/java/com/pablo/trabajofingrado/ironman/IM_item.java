@@ -32,6 +32,9 @@ public class IM_item extends AppCompatActivity {
     ArrayList<String> sinop = new ArrayList<>();
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> duraciones = new ArrayList<>();
+    ArrayList<Integer> imagenActor = new ArrayList<>();
+    ArrayList <String[]> actoresSep = new ArrayList<>();
+    ArrayList <String[]> personajesSep = new ArrayList<>();
     DatosIM[] listaPelis = new DatosIM[3];
     static int elementoIM = 0;
     @Override
@@ -69,6 +72,13 @@ public class IM_item extends AppCompatActivity {
                         String anyo = ds.child("anio").getValue().toString();
                         String descrip = ds.child("descripcion").getValue().toString();
                         String duracion = ds.child("duracion").getValue().toString();
+                        String actor = ds.child("actor").getValue().toString();
+                        String[] ac = actor.split(",");
+                        String personaje = ds.child("personaje").getValue().toString();
+                        String[] perso = personaje.split(",");
+
+                        IM_item.this.actoresSep.add(ac);
+                        IM_item.this.personajesSep.add(perso);
                         IM_item.this.nombres.add(nombre);
                         IM_item.this.anios.add(anyo);
                         IM_item.this.sinop.add(descrip);
@@ -99,6 +109,17 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(0));
                                     intent.putExtra("sinopsis", sinop.get(0));
                                     intent.putExtra("duracion", duraciones.get(0));
+                                    intent.putExtra("listaActor", actoresSep.get(0));
+                                    intent.putExtra("listaPer", personajesSep.get(0));
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 1:
@@ -109,6 +130,17 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(1));
                                     intent.putExtra("sinopsis", sinop.get(1));
                                     intent.putExtra("duracion", duraciones.get(1));
+                                    intent.putExtra("listaActor", actoresSep.get(1));
+                                    intent.putExtra("listaPer", personajesSep.get(1));
+                                    imagenActor.add(R.drawable.cartelera_ca1);
+                                    imagenActor.add(R.drawable.cartelera_ca2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_ca3);
+                                    imagenActor.add(R.drawable.cartelera_im1);
+                                    imagenActor.add(R.drawable.cartelera_im2);
+                                    imagenActor.add(R.drawable.cartelera_shc);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 2:
@@ -119,6 +151,17 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(2));
                                     intent.putExtra("sinopsis", sinop.get(2));
                                     intent.putExtra("duracion", duraciones.get(2));
+                                    intent.putExtra("listaActor", actoresSep.get(2));
+                                    intent.putExtra("listaPer", personajesSep.get(2));
+                                    imagenActor.add(R.drawable.cartelera_sp1);
+                                    imagenActor.add(R.drawable.cartelera_sp2);
+                                    imagenActor.add(R.drawable.cartelera_asp);
+                                    imagenActor.add(R.drawable.cartelera_asp2);
+                                    imagenActor.add(R.drawable.cartelera_shc);
+                                    imagenActor.add(R.drawable.cartelera_snwh);
+                                    imagenActor.add(R.drawable.cartelera_sffh);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
 

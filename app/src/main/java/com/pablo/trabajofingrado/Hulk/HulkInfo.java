@@ -5,6 +5,7 @@ import static android.os.Environment.DIRECTORY_MOVIES;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -26,6 +27,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pablo.trabajofingrado.R;
+import com.pablo.trabajofingrado.Thor.AdapterActoresThor;
+import com.pablo.trabajofingrado.Thor.DatosActoresThor;
+
+import java.util.ArrayList;
 
 public class HulkInfo extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
@@ -38,6 +43,8 @@ public class HulkInfo extends AppCompatActivity {
     ImageView imagen;
     TextView duracion;
     int REQUEST = 200;
+    ArrayList<DatosActoresHulk> listaActoresHulk = new ArrayList<>();
+    ArrayList<Integer> imagenActor = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,9 @@ public class HulkInfo extends AppCompatActivity {
                 desc();
             }
         });
+        actoresHulk();
+
+
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -146,5 +156,25 @@ public class HulkInfo extends AppCompatActivity {
         }
 
 
+    }
+    public void actoresHulk(){
+        Intent intent = getIntent();
+        int elemento = intent.getIntExtra("estado", -1);
+        if(elemento >= 0){
+            Bundle bundle = getIntent().getExtras();
+            String[] listasActor = bundle.getStringArray("listaActor");
+            String[] listasPers = bundle.getStringArray("listaPer");
+            ArrayList<Integer> listasPerso = bundle.getIntegerArrayList("fotosActores");
+
+            for (int i = 0; i < listasActor.length; i++) {
+                DatosActoresHulk objeto = new DatosActoresHulk(listasActor[i],listasPers[i], listasPerso.get(i));
+                listaActoresHulk.add(objeto);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerActores);
+                AdaptadorActoresHulk adapter = new AdaptadorActoresHulk(listaActoresHulk);
+                recyclerView.setAdapter(adapter);
+            }
+        }else{
+            Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
+        }
     }
 }

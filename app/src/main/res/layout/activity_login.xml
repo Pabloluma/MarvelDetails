@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B9F0131E"
+    android:background="#D75DA39C"
     tools:context=".login">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="264dp"
-            app:srcCompat="@drawable/imagen" />
+            app:srcCompat="@drawable/icono_marvel_details" />
 
         <EditText
             android:id="@+id/idUsuario"
@@ -26,8 +26,8 @@
             android:ems="12"
             android:hint="Nombre Usuario"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
@@ -37,10 +37,10 @@
             android:layout_gravity="center"
             android:ems="12"
             android:hint="Nombre"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginBottom="3dp"
             android:inputType="textPersonName"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black" />
 
         <EditText
             android:id="@+id/idApellido"
@@ -49,10 +49,10 @@
             android:layout_gravity="center"
             android:ems="12"
             android:hint="Apellido"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginBottom="3dp"
             android:inputType="textPersonName"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black" />
 
         <EditText
             android:id="@+id/idCorreo"
@@ -61,10 +61,10 @@
             android:ems="12"
             android:layout_gravity="center"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:hint="Correo"
             android:layout_marginBottom="3dp"
-            android:textColorHint="@color/white"/>
+            android:textColorHint="@color/black"/>
 
         <EditText
             android:id="@+id/idPasswd"
@@ -73,9 +73,9 @@
             android:ems="12"
             android:layout_gravity="center"
             android:inputType="textPassword"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:hint="Contraseña"
-            android:textColorHint="@color/white"/>
+            android:textColorHint="@color/black"/>
 
         <Button
             android:id="@+id/buttonreg"
@@ -86,7 +86,7 @@
             android:background="@drawable/button_main"
             android:onClick="alta"
             android:text="REGISTRARSE"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

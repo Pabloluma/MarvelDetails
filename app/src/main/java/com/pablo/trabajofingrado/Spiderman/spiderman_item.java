@@ -16,7 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.temaspelisGoogle;
 
 import java.util.ArrayList;
 
@@ -28,6 +27,9 @@ public class spiderman_item extends AppCompatActivity {
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> duraciones = new ArrayList<>();
     DatosSpiderman[] listaPelis = new DatosSpiderman[8];
+    ArrayList<Integer> imagenActor = new ArrayList<>();
+    ArrayList <String[]> actoresSep = new ArrayList<>();
+    ArrayList <String[]> personajesSep = new ArrayList<>();
     static int elementoSpiderman = 0;
 
 
@@ -66,6 +68,13 @@ public class spiderman_item extends AppCompatActivity {
                         String anyo = ds.child("anio").getValue().toString();
                         String descrip = ds.child("descripcion").getValue().toString();
                         String duracion = ds.child("duracion").getValue().toString();
+                        String actor = ds.child("actor").getValue().toString();
+                        String[] ac = actor.split(",");
+                        String personaje = ds.child("personaje").getValue().toString();
+                        String[] perso = personaje.split(",");
+
+                        spiderman_item.this.actoresSep.add(ac);
+                        spiderman_item.this.personajesSep.add(perso);
                         spiderman_item.this.nombres.add(nombre);
                         spiderman_item.this.anios.add(anyo);
                         spiderman_item.this.sinop.add(descrip);
@@ -101,6 +110,18 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(0));
                                     intent.putExtra("sinopsis", sinop.get(0));
                                     intent.putExtra("duracion", duraciones.get(0));
+                                    intent.putExtra("listaActor", actoresSep.get(0));
+                                    intent.putExtra("listaPer", personajesSep.get(0));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.tobey_maguire);
+                                    imagenActor.add(R.drawable.willem_dafoe);
+                                    imagenActor.add(R.drawable.kirsten_dunst);
+                                    imagenActor.add(R.drawable.james_franco);
+                                    imagenActor.add(R.drawable.jk_simmons);
+                                    imagenActor.add(R.drawable.cliff_robertson);
+                                    imagenActor.add(R.drawable.rosemary_harris);
+                                    imagenActor.add(R.drawable.ted_raimi);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 1:
@@ -111,6 +132,18 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(1));
                                     intent.putExtra("sinopsis", sinop.get(1));
                                     intent.putExtra("duracion", duraciones.get(1));
+                                    intent.putExtra("listaActor", actoresSep.get(1));
+                                    intent.putExtra("listaPer", personajesSep.get(1));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.tobey_maguire);
+                                    imagenActor.add(R.drawable.kirsten_dunst);
+                                    imagenActor.add(R.drawable.alfred_molina);
+                                    imagenActor.add(R.drawable.james_franco);
+                                    imagenActor.add(R.drawable.willem_dafoe);
+                                    imagenActor.add(R.drawable.rosemary_harris);
+                                    imagenActor.add(R.drawable.daniel_gillies);
+                                    imagenActor.add(R.drawable.jk_simmons);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 2:
@@ -121,6 +154,18 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(2));
                                     intent.putExtra("sinopsis", sinop.get(2));
                                     intent.putExtra("duracion", duraciones.get(2));
+                                    intent.putExtra("listaActor", actoresSep.get(2));
+                                    intent.putExtra("listaPer", personajesSep.get(2));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.tobey_maguire);
+                                    imagenActor.add(R.drawable.kirsten_dunst);
+                                    imagenActor.add(R.drawable.james_franco);
+                                    imagenActor.add(R.drawable.thomas_haden);
+                                    imagenActor.add(R.drawable.topher_grace);
+                                    imagenActor.add(R.drawable.bryce_dallas);
+                                    imagenActor.add(R.drawable.james_cromwell);
+                                    imagenActor.add(R.drawable.rosemary_harris);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 3:
@@ -131,6 +176,18 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(3));
                                     intent.putExtra("sinopsis", sinop.get(3));
                                     intent.putExtra("duracion", duraciones.get(3));
+                                    intent.putExtra("listaActor", actoresSep.get(3));
+                                    intent.putExtra("listaPer", personajesSep.get(3));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 4:
@@ -141,6 +198,17 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(4));
                                     intent.putExtra("sinopsis", sinop.get(4));
                                     intent.putExtra("duracion", duraciones.get(4));
+                                    intent.putExtra("listaActor", actoresSep.get(4));
+                                    intent.putExtra("listaPer", personajesSep.get(4));
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 5:
@@ -151,6 +219,17 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(5));
                                     intent.putExtra("sinopsis", sinop.get(5));
                                     intent.putExtra("duracion", duraciones.get(5));
+                                    intent.putExtra("listaActor", actoresSep.get(5));
+                                    intent.putExtra("listaPer", personajesSep.get(5));
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 6:
@@ -161,6 +240,17 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(6));
                                     intent.putExtra("sinopsis", sinop.get(6));
                                     intent.putExtra("duracion", duraciones.get(6));
+                                    intent.putExtra("listaActor", actoresSep.get(6));
+                                    intent.putExtra("listaPer", personajesSep.get(6));
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 7:
@@ -171,11 +261,20 @@ public class spiderman_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(7));
                                     intent.putExtra("sinopsis", sinop.get(7));
                                     intent.putExtra("duracion", duraciones.get(7));
+                                    intent.putExtra("listaActor", actoresSep.get(7));
+                                    intent.putExtra("listaPer", personajesSep.get(7));
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.cartelera_thor1);
+                                    imagenActor.add(R.drawable.cartelera_thor2);
+                                    imagenActor.add(R.drawable.cartelera_thor3);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                             }
-                            /*System.out.println(recyclerView.getChildAdapterPosition(v));
-                            Toast.makeText(getApplicationContext(),"Seleccion: " + listaPelis[recyclerView.getChildAdapterPosition(v)].getNombre(),Toast.LENGTH_LONG).show();*/
                         }
                     });
 

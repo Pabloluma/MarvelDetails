@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pablo.trabajofingrado.R;
+import com.pablo.trabajofingrado.ironman.IM_item;
 import com.pablo.trabajofingrado.temaspelisGoogle;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class CA_item extends AppCompatActivity {
     ArrayList<String> sinop = new ArrayList<>();
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> duraciones = new ArrayList<>();
+    ArrayList<Integer> imagenActor = new ArrayList<>();
+    ArrayList <String[]> actoresSep = new ArrayList<>();
+    ArrayList <String[]> personajesSep = new ArrayList<>();
     DatosCA[] listaPelis = new DatosCA[3];
     static int elementoCA = 0;
     @Override
@@ -61,6 +65,13 @@ public class CA_item extends AppCompatActivity {
                         String anyo = ds.child("anio").getValue().toString();
                         String descrip = ds.child("descripcion").getValue().toString();
                         String duracion = ds.child("duracion").getValue().toString();
+                        String actor = ds.child("actor").getValue().toString();
+                        String[] ac = actor.split(",");
+                        String personaje = ds.child("personaje").getValue().toString();
+                        String[] perso = personaje.split(",");
+
+                        CA_item.this.actoresSep.add(ac);
+                        CA_item.this.personajesSep.add(perso);
                         CA_item.this.nombres.add(nombre);
                         CA_item.this.anios.add(anyo);
                         CA_item.this.sinop.add(descrip);
@@ -91,6 +102,18 @@ public class CA_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(0));
                                     intent.putExtra("sinopsis", sinop.get(0));
                                     intent.putExtra("duracion", duraciones.get(0));
+                                    intent.putExtra("listaActor", actoresSep.get(0));
+                                    intent.putExtra("listaPer", personajesSep.get(0));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.chris_evans);
+                                    imagenActor.add(R.drawable.hayley_atwell);
+                                    imagenActor.add(R.drawable.sebastian_stan);
+                                    imagenActor.add(R.drawable.tommy_lee);
+                                    imagenActor.add(R.drawable.hugo_weaving);
+                                    imagenActor.add(R.drawable.dominic_cooper);
+                                    imagenActor.add(R.drawable.richard_armitage);
+                                    imagenActor.add(R.drawable.stanley_tucci);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 1:
@@ -101,6 +124,18 @@ public class CA_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(1));
                                     intent.putExtra("sinopsis", sinop.get(1));
                                     intent.putExtra("duracion", duraciones.get(1));
+                                    intent.putExtra("listaActor", actoresSep.get(1));
+                                    intent.putExtra("listaPer", personajesSep.get(1));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.chris_evans);
+                                    imagenActor.add(R.drawable.scarlett_johansson);
+                                    imagenActor.add(R.drawable.anthonie_mackie);
+                                    imagenActor.add(R.drawable.samuel_ljackson);
+                                    imagenActor.add(R.drawable.cobie_smulders);
+                                    imagenActor.add(R.drawable.frank_grillo);
+                                    imagenActor.add(R.drawable.emily_vancamp);
+                                    imagenActor.add(R.drawable.hayley_atwell);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
                                 case 2:
@@ -111,6 +146,18 @@ public class CA_item extends AppCompatActivity {
                                     intent.putExtra("anio", anios.get(2));
                                     intent.putExtra("sinopsis", sinop.get(2));
                                     intent.putExtra("duracion", duraciones.get(2));
+                                    intent.putExtra("listaActor", actoresSep.get(2));
+                                    intent.putExtra("listaPer", personajesSep.get(2));
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.chris_evans);
+                                    imagenActor.add(R.drawable.cartelera_sp2);
+                                    imagenActor.add(R.drawable.scarlett_johansson);
+                                    imagenActor.add(R.drawable.cartelera_asp2);
+                                    imagenActor.add(R.drawable.sebastian_stan);
+                                    imagenActor.add(R.drawable.anthonie_mackie);
+                                    imagenActor.add(R.drawable.cartelera_sffh);
+                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
 

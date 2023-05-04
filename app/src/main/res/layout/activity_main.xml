@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#D75DA39C"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -19,8 +19,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="209dp"
-            app:srcCompat="@drawable/imagen" />
+            android:layout_height="148dp"
+            app:srcCompat="@drawable/icono_marvel_details" />
 
         <Spinner
             android:id="@+id/spinner"

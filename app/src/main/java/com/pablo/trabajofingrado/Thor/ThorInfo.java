@@ -3,15 +3,14 @@ package com.pablo.trabajofingrado.Thor;
 import static android.os.Environment.DIRECTORY_MOVIES;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -29,10 +28,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pablo.trabajofingrado.R;
 
+import java.util.ArrayList;
+
 public class ThorInfo extends AppCompatActivity {
+    ArrayList<Integer> imagenActor = new ArrayList<>();
+    ArrayList<DatosActoresThor> listaActoresThor = new ArrayList<>();
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     StorageReference reference;
+
     Button botondesc;
     TextView tit;
     TextView year;
@@ -62,13 +66,12 @@ public class ThorInfo extends AppCompatActivity {
                 desc();
             }
         });
+        ActoresThor();
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                /*startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-                supportFinishAfterTransition();*/
                 finish();
                 return true;
         }
@@ -175,10 +178,38 @@ public class ThorInfo extends AppCompatActivity {
             year.setText(years);
             sinopsis.setText(sinop);
             duracion.setText(duraciones);
+
         }else{
             Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void ActoresThor(){
+        Intent intent = getIntent();
+        int elemento = intent.getIntExtra("estado", -1);
+        if(elemento >= 0){
+            Bundle bundle = getIntent().getExtras();
+            String[] listasActor = bundle.getStringArray("listaActor");
+            String[] listasPers = bundle.getStringArray("listaPer");
+            ArrayList<Integer> listasPerso = bundle.getIntegerArrayList("fotosActores");
 
+//            imagenActor.add(R.drawable.cartelera_thor1);
+//            imagenActor.add(R.drawable.cartelera_thor2);
+//            imagenActor.add(R.drawable.cartelera_thor3);
+//            imagenActor.add(R.drawable.cartelera_thor4);
+//            imagenActor.add(R.drawable.cartelera_thor1);
+//            imagenActor.add(R.drawable.cartelera_thor2);
+//            imagenActor.add(R.drawable.cartelera_thor3);
+//            imagenActor.add(R.drawable.cartelera_thor4);
 
+            for (int i = 0; i < listasActor.length; i++) {
+                DatosActoresThor objeto = new DatosActoresThor(listasActor[i],listasPers[i], listasPerso.get(i));
+                listaActoresThor.add(objeto);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerActores);
+                AdapterActoresThor adapter = new AdapterActoresThor(listaActoresThor);
+                recyclerView.setAdapter(adapter);
+            }
+        }else{
+            Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
+        }
     }
 }

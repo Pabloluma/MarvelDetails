@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -29,12 +30,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pablo.trabajofingrado.AdapterActores;
+import com.pablo.trabajofingrado.DatosActores;
 import com.pablo.trabajofingrado.R;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class SpidermanInfo extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
+    ArrayList<DatosActores> listaActoresSp = new ArrayList<>();
     StorageReference storageReference;
     StorageReference reference;
     Button botondesc;
@@ -60,6 +65,7 @@ public class SpidermanInfo extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         insertar();
+        ActoresSp();
         botondesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,6 +271,26 @@ public class SpidermanInfo extends AppCompatActivity {
         }
 
 
+    }
+    public void ActoresSp(){
+        Intent intent = getIntent();
+        int elemento = intent.getIntExtra("estado", -1);
+        if(elemento >= 0){
+            Bundle bundle = getIntent().getExtras();
+            String[] listasActor = bundle.getStringArray("listaActor");
+            String[] listasPers = bundle.getStringArray("listaPer");
+            ArrayList<Integer> listasPerso = bundle.getIntegerArrayList("fotosActores");
+
+            for (int i = 0; i < listasActor.length; i++) {
+                DatosActores objeto = new DatosActores(listasActor[i],listasPers[i], listasPerso.get(i));
+                listaActoresSp.add(objeto);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerActores);
+                AdapterActores adapter = new AdapterActores(listaActoresSp);
+                recyclerView.setAdapter(adapter);
+            }
+        }else{
+            Toast.makeText(this, "Algo no ha ido como debería", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
