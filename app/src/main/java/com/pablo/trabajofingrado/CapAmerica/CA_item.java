@@ -150,13 +150,13 @@ public class CA_item extends AppCompatActivity {
                                     intent.putExtra("listaPer", personajesSep.get(2));
                                     imagenActor.clear();
                                     imagenActor.add(R.drawable.chris_evans);
-                                    imagenActor.add(R.drawable.cartelera_sp2);
+                                    imagenActor.add(R.drawable.robert_downey_jr);
                                     imagenActor.add(R.drawable.scarlett_johansson);
-                                    imagenActor.add(R.drawable.cartelera_asp2);
+                                    imagenActor.add(R.drawable.elisabeth_olsen);
                                     imagenActor.add(R.drawable.sebastian_stan);
                                     imagenActor.add(R.drawable.anthonie_mackie);
-                                    imagenActor.add(R.drawable.cartelera_sffh);
-                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.add(R.drawable.don_cheadle);
+                                    imagenActor.add(R.drawable.jeremy_renner);
                                     intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
