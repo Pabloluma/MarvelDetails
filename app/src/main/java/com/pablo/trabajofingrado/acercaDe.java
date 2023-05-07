@@ -7,16 +7,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class aviso_legal extends AppCompatActivity {
+public class acercaDe extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aviso_legal);
+        setContentView(R.layout.activity_acerca_de);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Aviso Legal");
+        getSupportActionBar().setTitle("Acerca De");
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

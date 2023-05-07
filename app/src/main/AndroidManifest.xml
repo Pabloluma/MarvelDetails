@@ -17,6 +17,9 @@
         android:theme="@style/Theme.TrabajoFinGrado"
         tools:targetApi="31">
         <activity
+            android:name=".acercaDe"
+            android:exported="false" />
+        <activity
             android:name=".aviso_legal"
             android:exported="false" />
         <activity

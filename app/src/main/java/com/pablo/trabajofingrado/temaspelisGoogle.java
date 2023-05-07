@@ -191,6 +191,8 @@ public class temaspelisGoogle extends AppCompatActivity {
                     case R.id.aviso:
                         startActivity(new Intent(temaspelisGoogle.this,aviso_legal.class));
                         break;
+                    case R.id.acerca:
+                        startActivity(new Intent(temaspelisGoogle.this,acercaDe.class));
                     default:
                         break;
                 }
