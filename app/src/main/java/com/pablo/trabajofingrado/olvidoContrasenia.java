@@ -38,57 +38,22 @@ public class olvidoContrasenia extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_olvido_contrasenia);
-//        getSupportActionBar().hide();
         getSupportActionBar().setTitle("Recuperar Contraseña");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
-        /*text1 = findViewById(R.id.Passwd);
-        text2 = findViewById(R.id.Passwd2);*/
         text3 = findViewById(R.id.usuario);
         botonsigu = findViewById(R.id.siguiente);
-        //boton2 = findViewById(R.id.buttonCambiar);
         auth = FirebaseAuth.getInstance();
         dialog = new ProgressDialog(this);
-
-        /*text1.setVisibility(View.INVISIBLE);
-        text2.setVisibility(View.INVISIBLE);*/
         text3.setVisibility(View.VISIBLE);
         botonsigu.setVisibility(View.VISIBLE);
-      //  boton2.setVisibility(View.INVISIBLE);
         botonsigu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mail = text3.getText().toString();
-                if(!mail.isEmpty()){
-                    dialog.setMessage("Espere un momento...");
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.show();
-                    resetPassword();
-                }else{
-                    Toast.makeText(olvidoContrasenia.this, "Hay que ingresar un email", Toast.LENGTH_SHORT).show();
-                }
-                /*if(sacarNombre().contains(text3.getText().toString())){
-                    text1.setVisibility(View.VISIBLE);
-                    text2.setVisibility(View.VISIBLE);
-                    text3.setVisibility(View.INVISIBLE);
-                    botonsigu.setVisibility(View.INVISIBLE);
-                    boton2.setVisibility(View.VISIBLE);
-
-                }else{
-                    Toast.makeText(olvidoContrasenia.this, "Intentalo de nuevo", Toast.LENGTH_SHORT).show();
-                }*/
+                resetPassword();
             }
         });
-
-        /*boton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(olvidoContrasenia.this, "Se ha cambiado", Toast.LENGTH_SHORT).show();
-                /*Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(i);*/
-            /*}
-        });*/
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -102,10 +67,14 @@ public class olvidoContrasenia extends AppCompatActivity {
 
     private void resetPassword() {
         auth.setLanguageCode("es");
+        mail = text3.getText().toString();
         auth.sendPasswordResetEmail(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    dialog.setMessage("Espere un momento...");
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
                     Toast.makeText(olvidoContrasenia.this, "Correo enviado", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }else {
@@ -113,33 +82,6 @@ public class olvidoContrasenia extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    public ArrayList<String> sacarNombre(){
-        DB admin = new DB(getApplicationContext(), "Bases", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-
-        Cursor cursor = bd.rawQuery("SELECT NombreUsuario FROM Usuarios", null);
-        ArrayList<String> nombres = new ArrayList<>();
-
-        while(cursor.moveToNext()){
-            nombres.add(cursor.getString(0));
-        }
-        cursor.close();
-
-        return nombres;
-    }
-//Hay que hacer un metodo para sacar la contraseña del usuario insertado
-
-//Actualizan los datos
-    public void actualizarDatos(){
-        DB admin = new DB(getApplicationContext(), "Bases", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        /*ContentValues cv = new ContentValues();
-        cv.put("contrasenia", );
-        String[] args = new String []{ "Academia Android"};
-        db.update("comments", cv, "user=?", args);*/
 
     }
 }

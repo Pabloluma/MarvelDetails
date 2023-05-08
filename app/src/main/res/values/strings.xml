@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrabajoFinGrado</string>
+    <string name="app_name">Marvel Details</string>
     <string name="nombre">idpersonaje</string>
     <string name="textoAlerta">Comprueba la conexion e intentalo de nuevo mas tarde</string>
     <string name="OK">OK</string>

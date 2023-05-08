@@ -15,7 +15,7 @@
         android:fontFamily="@font/roboto"
         android:text="Aviso legal"
         android:layout_marginTop="10dp"
-        android:textColor="#33951D"
+        android:textColor="#1D8795"
         android:textSize="25sp" />
 
     <TextView
