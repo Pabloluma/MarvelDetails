@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
 
             }
         });
-        //
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,14 +219,11 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
                 } else {
                     falloConexion().show();
                 }
-
-
-
             }
         });
     }
 
-    //Inico de sesion con Google
+    //Inicio de sesion con Google
     public void inicioGoogle(View v){
         opcion = 1;
         imageGoogle.setBackgroundDrawable(null);
@@ -240,7 +236,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
         } else {
             falloConexion().show();
         }
-
     }
 
     private void SigIn() {
@@ -269,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
         startActivity(intent);
         finish();
     }
+
 //Inicio de sesion correo/Contraseña
     public void inicioSesion(View v){
         opcion = 2;

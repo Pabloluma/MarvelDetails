@@ -90,8 +90,8 @@ public class account extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        /*String*/ nomUsu = bundle.getString("usuario");
-        /*Query*/ query = db.orderByChild("username").equalTo(nomUsu);
+        nomUsu = bundle.getString("usuario");
+        query = db.orderByChild("username").equalTo(nomUsu);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -153,7 +153,6 @@ public class account extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
             Uri file_uri = data.getData();
-            //StorageReference filepath = folder.child("file" + file_uri.getLastPathSegment());
             StorageReference filepath = folder.child(myauth.getUid());
             System.out.println(file_uri);
             System.out.println(filepath);

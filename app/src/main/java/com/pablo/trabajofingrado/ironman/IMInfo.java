@@ -56,7 +56,6 @@ public class IMInfo extends AppCompatActivity {
         setContentView(R.layout.activity_im_info);
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
-       // getSupportActionBar().hide();
         botondesc = findViewById(R.id.descargas2);
         tit = findViewById(R.id.titulo);
         imagen = findViewById(R.id.imageView5);
@@ -79,8 +78,6 @@ public class IMInfo extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                /*startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-                supportFinishAfterTransition();*/
                 finish();
                 return true;
         }

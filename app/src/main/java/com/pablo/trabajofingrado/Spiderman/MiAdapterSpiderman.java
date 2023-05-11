@@ -50,14 +50,6 @@ public class MiAdapterSpiderman extends RecyclerView.Adapter<MiAdapterSpiderman.
         holder.nombre.setText(discos[position].getNombre());
         holder.descripcion.setText(discos[position].getDescripcion());
         holder.logo.setImageResource(discos[position].getLogo());
-
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), Textos.class);
-                holder.itemView.getContext().startActivity(intent);
-            }
-        });*/
     }
 
     @Override

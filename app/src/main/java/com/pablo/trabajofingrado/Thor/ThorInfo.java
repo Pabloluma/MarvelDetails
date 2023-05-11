@@ -192,15 +192,6 @@ public class ThorInfo extends AppCompatActivity {
             String[] listasPers = bundle.getStringArray("listaPer");
             ArrayList<Integer> listasPerso = bundle.getIntegerArrayList("fotosActores");
 
-//            imagenActor.add(R.drawable.cartelera_thor1);
-//            imagenActor.add(R.drawable.cartelera_thor2);
-//            imagenActor.add(R.drawable.cartelera_thor3);
-//            imagenActor.add(R.drawable.cartelera_thor4);
-//            imagenActor.add(R.drawable.cartelera_thor1);
-//            imagenActor.add(R.drawable.cartelera_thor2);
-//            imagenActor.add(R.drawable.cartelera_thor3);
-//            imagenActor.add(R.drawable.cartelera_thor4);
-
             for (int i = 0; i < listasActor.length; i++) {
                 DatosActoresThor objeto = new DatosActoresThor(listasActor[i],listasPers[i], listasPerso.get(i));
                 listaActoresThor.add(objeto);

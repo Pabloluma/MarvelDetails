@@ -42,7 +42,6 @@ public class IM_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_im_item);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.redMarvel)));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_home_24_white);
@@ -54,9 +53,6 @@ public class IM_item extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-//                /*startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-//                supportFinishAfterTransition(); */
-//                startActivity(new Intent(getApplicationContext(), getParent().getClass()));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -111,14 +107,15 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("duracion", duraciones.get(0));
                                     intent.putExtra("listaActor", actoresSep.get(0));
                                     intent.putExtra("listaPer", personajesSep.get(0));
-                                    imagenActor.add(R.drawable.cartelera_thor1);
-                                    imagenActor.add(R.drawable.cartelera_thor2);
-                                    imagenActor.add(R.drawable.cartelera_thor3);
-                                    imagenActor.add(R.drawable.cartelera_thor4);
-                                    imagenActor.add(R.drawable.cartelera_thor1);
-                                    imagenActor.add(R.drawable.cartelera_thor2);
-                                    imagenActor.add(R.drawable.cartelera_thor3);
-                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.robert_downey_jr);
+                                    imagenActor.add(R.drawable.terrance_howard);
+                                    imagenActor.add(R.drawable.gwyneth_paltrow);
+                                    imagenActor.add(R.drawable.jeff_bridges);
+                                    imagenActor.add(R.drawable.shaun_toub);
+                                    imagenActor.add(R.drawable.leslie_bibb);
+                                    imagenActor.add(R.drawable.clark_greg);
+                                    imagenActor.add(R.drawable.bill_smitrovich);
                                     intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
@@ -132,14 +129,15 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("duracion", duraciones.get(1));
                                     intent.putExtra("listaActor", actoresSep.get(1));
                                     intent.putExtra("listaPer", personajesSep.get(1));
-                                    imagenActor.add(R.drawable.cartelera_ca1);
-                                    imagenActor.add(R.drawable.cartelera_ca2);
-                                    imagenActor.add(R.drawable.cartelera_thor3);
-                                    imagenActor.add(R.drawable.cartelera_ca3);
-                                    imagenActor.add(R.drawable.cartelera_im1);
-                                    imagenActor.add(R.drawable.cartelera_im2);
-                                    imagenActor.add(R.drawable.cartelera_shc);
-                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.robert_downey_jr);
+                                    imagenActor.add(R.drawable.don_cheadle);
+                                    imagenActor.add(R.drawable.scarlett_johansson);
+                                    imagenActor.add(R.drawable.mickey_rourke);
+                                    imagenActor.add(R.drawable.gwyneth_paltrow);
+                                    imagenActor.add(R.drawable.sam_rockwell);
+                                    imagenActor.add(R.drawable.samuel_ljackson);
+                                    imagenActor.add(R.drawable.garry_shandling);
                                     intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
@@ -153,21 +151,20 @@ public class IM_item extends AppCompatActivity {
                                     intent.putExtra("duracion", duraciones.get(2));
                                     intent.putExtra("listaActor", actoresSep.get(2));
                                     intent.putExtra("listaPer", personajesSep.get(2));
-                                    imagenActor.add(R.drawable.cartelera_sp1);
-                                    imagenActor.add(R.drawable.cartelera_sp2);
-                                    imagenActor.add(R.drawable.cartelera_asp);
-                                    imagenActor.add(R.drawable.cartelera_asp2);
-                                    imagenActor.add(R.drawable.cartelera_shc);
-                                    imagenActor.add(R.drawable.cartelera_snwh);
-                                    imagenActor.add(R.drawable.cartelera_sffh);
-                                    imagenActor.add(R.drawable.cartelera_thor4);
+                                    imagenActor.clear();
+                                    imagenActor.add(R.drawable.robert_downey_jr);
+                                    imagenActor.add(R.drawable.gwyneth_paltrow);
+                                    imagenActor.add(R.drawable.don_cheadle);
+                                    imagenActor.add(R.drawable.ben_kingsley);
+                                    imagenActor.add(R.drawable.guy_pearce);
+                                    imagenActor.add(R.drawable.james_badge);
+                                    imagenActor.add(R.drawable.rebecca_hall);
+                                    imagenActor.add(R.drawable.jon_favreau);
                                     intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
 
                             }
-                            /*System.out.println(recyclerView.getChildAdapterPosition(v));
-                            Toast.makeText(getApplicationContext(),"Seleccion: " + listaPelis[recyclerView.getChildAdapterPosition(v)].getNombre(),Toast.LENGTH_LONG).show();*/
                         }
                     });
 

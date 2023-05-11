@@ -79,8 +79,6 @@ public class SpidermanInfo extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                /*startActivity(new Intent(getApplicationContext(), temaspelisGoogle.class));
-                supportFinishAfterTransition();*/
                 finish();
                 return true;
         }
@@ -235,22 +233,6 @@ public class SpidermanInfo extends AppCompatActivity {
             }
         }
     }
-    /*public void descargar(Context context, String filename, String fileExtension, String destinationDirectory, String url){
-        int permisoWrite = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permisoWrite == PackageManager.PERMISSION_GRANTED){
-            DownloadManager downloadManager = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse(url);
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-            request.setDestinationInExternalFilesDir(context,destinationDirectory,filename+fileExtension);
-            downloadManager.enqueue(request);
-        }else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST);
-            }
-        }
-    }*/
     public void insertar(){
         Intent intent = getIntent();
         int elemento = intent.getIntExtra("estado", -1);
