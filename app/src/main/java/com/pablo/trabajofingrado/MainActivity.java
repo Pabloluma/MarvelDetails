@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.redMarvel));
-        //getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         myauth = FirebaseAuth.getInstance();
         //instancia de los elementos de la vista
         boton = findViewById(R.id.botoncrear);
@@ -151,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String elemento = (String) spinner.getAdapter().getItem(position);
                 if(spinner.getSelectedItem().toString().equalsIgnoreCase("Correo y Contraseña")){
                     botonreghu.setVisibility(View.INVISIBLE);
                     botonhu.setVisibility(View.INVISIBLE);
@@ -208,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
                 ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
-                    // Toast.makeText(MainActivity.this,"Has pulsado la huella de logueo",Toast.LENGTH_LONG).show();
                     new com.an.biometric.BiometricManager.BiometricBuilder(MainActivity.this)
                             .setTitle("Logueate")
                             .setSubtitle("Pon la Huella")
@@ -278,54 +275,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
             }else{
                 loginUser(corUsu,passwdUsu);
             }
-
-
-            /*db = FirebaseDatabase.getInstance().getReference().child("Usuarios");
-            db.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        for(DataSnapshot ds :dataSnapshot.getChildren()){
-                            String mail = ds.child("email").getValue().toString();
-                            String pass = ds.child("contrasenia").getValue().toString();
-                            diccionario.put(mail,pass);
-                            correo.add(mail);
-                        }
-                        System.out.println(diccionario);
-                        String valor;
-                        if(corUsu.isEmpty() || passwdUsu.isEmpty()){
-                            Toast.makeText(MainActivity.this, "Primero tienes que rellenar todos los campos", Toast.LENGTH_SHORT).show();
-                        }else{
-                        if(correo.contains(corUsu)){
-                            valor = diccionario.get(corUsu);
-                            if(passwdUsu.equals(valor)){
-                                Intent intent = new Intent(getApplicationContext(), temaspelisGoogle.class);
-                                intent.putExtra("correo",corUsu);
-                                intent.putExtra("opcion", opcion);
-                                startActivity(intent);
-                                finish();
-                                campoCorUsu.setText("");
-                                campoPasswdUsu.setText("");
-                            }else{
-                                Toast.makeText(getApplicationContext(), "La contraseña no es la correcta", Toast.LENGTH_SHORT).show();
-                            }
-                        }else{
-                            Toast.makeText(getApplicationContext(), "El correo o la contraseña no es correcto", Toast.LENGTH_SHORT).show();
-                        }
-                        if(diccionario.isEmpty()){
-                            Toast.makeText(getApplicationContext(),"La base de datos está vacia\n Tienes que registrarte", Toast.LENGTH_LONG).show();
-                        }
-                        }
-
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });*/
-
-
         } else {
             falloConexion().show();
         }
@@ -419,29 +368,6 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
 
     }
 
-
-
-    //Comprobar si hay internet cada 5 segundos
-   /* public void comprobarCadax(){
-        final Handler handler= new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                comprobarRed();//llamamos nuestro metodo
-                handler.postDelayed(this,10000);//se ejecutara cada 10 segundos
-            }
-        },5000);
-
-    }
-    public void comprobarRed(){
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-        } else {
-            Toast.makeText(this, "No hay internet", Toast.LENGTH_SHORT).show();
-        }
-
-    }*/
     public AlertDialog falloConexion(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogTheme);
         View view = LayoutInflater.from(MainActivity.this).inflate(

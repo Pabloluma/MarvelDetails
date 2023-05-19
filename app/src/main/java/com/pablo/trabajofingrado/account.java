@@ -43,7 +43,6 @@ public class account extends AppCompatActivity {
     String usename = "";
     String name = "";
     String mail = "";
-    String perfil = "";
     EditText usuario;
     ImageView imageView;
     EditText nombre;
@@ -55,7 +54,6 @@ public class account extends AppCompatActivity {
     String nomUsu;
     Query query;
     FirebaseAuth myauth;
-    String dataKey;
 
 
 
@@ -82,11 +80,6 @@ public class account extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance();
         folder = mStorage.getReference().child("fotoPerfil");
         myauth = FirebaseAuth.getInstance();
-       /*System.out.println("Hola " + myauth.getUid());
-        System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getUid());
-        System.out.println("Holaaaaa " + Objects.requireNonNull(myauth.getCurrentUser()).getEmail());
-        System.out.println("verificado: " + Objects.requireNonNull(myauth.getCurrentUser()).isEmailVerified());
-        System.out.println("verificado: " + myauth.getCurrentUser().getPhotoUrl());*/
 
 
         Bundle bundle = getIntent().getExtras();
@@ -108,10 +101,7 @@ public class account extends AppCompatActivity {
                         imageView.setImageResource(R.drawable.baseline_account_circle_24);
                     }else{
                         Picasso.get().load(myauth.getCurrentUser().getPhotoUrl()).into(imageView);
-
                     }
-                    dataKey = dataSnapshot.getKey();
-                    System.out.println("DataSnapshot: " + dataKey);
                 }
             }
 
@@ -148,19 +138,17 @@ public class account extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
             Uri file_uri = data.getData();
             StorageReference filepath = folder.child(myauth.getUid());
-            System.out.println(file_uri);
-            System.out.println(filepath);
 
             filepath.putFile(file_uri).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("Link", String.valueOf(uri));
-                System.out.println(hashMap);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setPhotoUri(uri)
