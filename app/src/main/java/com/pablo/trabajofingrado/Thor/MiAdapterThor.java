@@ -9,17 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pablo.trabajofingrado.CapAmerica.DatosCA;
-import com.pablo.trabajofingrado.CapAmerica.MiAdapterCA;
 import com.pablo.trabajofingrado.R;
 
+import java.util.ArrayList;
+
 public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder> implements View.OnClickListener  {
-    private DatosThor[] discos;
+    private ArrayList<DatosThor> peliculasThor;
     private View.OnClickListener listener;
 
-    public MiAdapterThor(DatosThor[] discos) {
-        this.discos = discos;
-    }
+   public MiAdapterThor(ArrayList<DatosThor> peliculasThor) {
+       this.peliculasThor = peliculasThor;
+   }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView nombreThor;
@@ -43,17 +43,17 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
         return new MiAdapterThor.ViewHolder(view);
 
     }
-
     @Override
     public void onBindViewHolder(@NonNull MiAdapterThor.ViewHolder holder, int position) {
-        holder.nombreThor.setText(discos[position].getNombreThor());
-        holder.descripcionThor.setText(discos[position].getDescripcionThor());
-        holder.logoThor.setImageResource(discos[position].getLogoThor());
+        holder.nombreThor.setText(peliculasThor.get(position).getNombreThor());
+        holder.descripcionThor.setText(peliculasThor.get(position).getDescripcionThor());
+        holder.logoThor.setImageResource(peliculasThor.get(position).getLogoThor());
+
     }
 
     @Override
     public int getItemCount() {
-        return discos.length;
+        return peliculasThor.size();
     }
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;

@@ -31,8 +31,6 @@ import java.util.stream.Stream;
 
 public class login extends AppCompatActivity {
     EditText campoNomUsu, campoNombre, campoApellido, campoCorUsu, campoPasswd;
-    ArrayList<String> correo = new ArrayList<>();
-    ArrayList<String> usuarios = new ArrayList<>();
     String usu = "";
     String nom = "";
     String ape = "";
@@ -42,7 +40,6 @@ public class login extends AppCompatActivity {
     DatabaseReference bd;
     User user;
     long num = 0;
-    String correos;
     FirebaseUser fUser;
 
     @Override
@@ -60,7 +57,6 @@ public class login extends AppCompatActivity {
         campoApellido = findViewById(R.id.idApellido);
         campoCorUsu = findViewById(R.id.idCorreo);
         campoPasswd = findViewById(R.id.idPasswd);
-        Button boton = findViewById(R.id.buttonreg);
 
 
         bd.addValueEventListener(new ValueEventListener() {
@@ -86,13 +82,6 @@ public class login extends AppCompatActivity {
         cor = campoCorUsu.getText().toString().trim();
         con = campoPasswd.getText().toString().trim();
         String corr = cor.toLowerCase();
-
-//        auth.createUserWithEmailAndPassword(cor, con).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//           }
-//       });
 
         if (usu.isEmpty() || nom.isEmpty() || ape.isEmpty() || cor.isEmpty() || con.isEmpty()) {
             Toast.makeText(login.this, "Debes rellenar Todos los campos", Toast.LENGTH_SHORT).show();
@@ -127,9 +116,8 @@ public class login extends AppCompatActivity {
                                         user.setNombre(nom);
                                         user.setApellido(ape);
                                         user.setEmail(corr);
-                                        //user.setContrasenia(con);
                                         bd.child(String.valueOf(num + 1)).setValue(user);
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
                                         Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
                                     }
                                 }

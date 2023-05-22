@@ -35,7 +35,7 @@ public class Thor_item extends AppCompatActivity {
     ArrayList<String> sinop = new ArrayList<>();
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> duraciones = new ArrayList<>();
-    DatosThor[] listaPelis = new DatosThor[4];
+    ArrayList<DatosThor> listaPelis = new ArrayList<>();
     static int elementoThor = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class Thor_item extends AppCompatActivity {
 
                     for (int i = 0; i < nombres.size(); i++) {
                         DatosThor objeto = new DatosThor(nombres.get(i), anios.get(i), fotos.get(i));
-                        listaPelis[i] = objeto;
+                        listaPelis.add(objeto);
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewThor);
@@ -100,6 +100,7 @@ public class Thor_item extends AppCompatActivity {
                     adapter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             switch (recyclerView.getChildAdapterPosition(v)){
                                 case 0:
                                     elementoThor = 0;
@@ -189,7 +190,6 @@ public class Thor_item extends AppCompatActivity {
                                     intent.putExtra("fotosActores", imagenActor);
                                     startActivity(intent);
                                     break;
-
                             }
                         }
                     });
