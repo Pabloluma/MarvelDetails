@@ -12,14 +12,61 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pablo.trabajofingrado.R;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder> implements View.OnClickListener  {
+public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder> /*implements View.OnClickListener*/  {
     private ArrayList<DatosThor> peliculasThor;
-    private View.OnClickListener listener;
+    //private View.OnClickListener listener;
 
-   public MiAdapterThor(ArrayList<DatosThor> peliculasThor) {
+
+
+
+    private ArrayList<DatosThor> listaOr;
+    public ItemClicListener itemClicListener;
+
+    public interface ItemClicListener{
+        void itemClicked(DatosThor datosThor);
+        //void itemClickedArraylist(ArrayList<DatosThor> datosThors);
+    }
+
+   public MiAdapterThor(ArrayList<DatosThor> peliculasThor, ItemClicListener itemClicListener) {
        this.peliculasThor = peliculasThor;
+       this.itemClicListener = itemClicListener;
+
+
+       listaOr = new ArrayList<>();
+       listaOr.addAll(peliculasThor);
+
    }
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_spiderman, parent, false);
+       // view.setOnClickListener(this);
+        return new ViewHolder(view);
+
+    }
+    @Override
+    public void onBindViewHolder(@NonNull MiAdapterThor.ViewHolder holder, int position) {
+        DatosThor itemModal = peliculasThor.get(position);
+        holder.nombreThor.setText(peliculasThor.get(position).getNombreThor());
+        holder.descripcionThor.setText(peliculasThor.get(position).getDescripcionThor());
+        holder.logoThor.setImageResource(peliculasThor.get(position).getLogoThor());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClicListener.itemClicked(itemModal);
+            }
+        });
+
+    }
+    @Override
+    public int getItemCount() {
+        return peliculasThor.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView nombreThor;
@@ -34,28 +81,32 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
             logoThor = itemView.findViewById(R.id.imageView);
         }
     }
-    // Cierra Clase ViewHolder
-    @NonNull
-    @Override
-    public MiAdapterThor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_spiderman, parent, false);
-        view.setOnClickListener(this);
-        return new MiAdapterThor.ViewHolder(view);
 
+    public void filtrar(String textoBuscado){
+       if(textoBuscado.trim().length() == 0){
+           peliculasThor.clear();
+           peliculasThor.addAll(listaOr);
+       }else{
+           if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+               List<DatosThor> coleccion = peliculasThor.stream().filter(i->i.getNombreThor()
+                       .toLowerCase().contains(textoBuscado.toLowerCase())).collect(Collectors.toList());
+               peliculasThor.clear();
+               peliculasThor.addAll(coleccion);
+           }else {
+               for (DatosThor d: peliculasThor) {
+                   if(d.getNombreThor().toLowerCase().contains(textoBuscado.toLowerCase())) {
+                       peliculasThor.add(d);
+                   }
+               }
+           }
+       }
+       notifyDataSetChanged();
     }
-    @Override
-    public void onBindViewHolder(@NonNull MiAdapterThor.ViewHolder holder, int position) {
-        holder.nombreThor.setText(peliculasThor.get(position).getNombreThor());
-        holder.descripcionThor.setText(peliculasThor.get(position).getDescripcionThor());
-        holder.logoThor.setImageResource(peliculasThor.get(position).getLogoThor());
 
-    }
 
-    @Override
-    public int getItemCount() {
-        return peliculasThor.size();
-    }
-    public void setOnClickListener(View.OnClickListener listener){
+
+
+   /* public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
     }
     @Override
@@ -64,6 +115,6 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
             listener.onClick(v);
         }
 
-    }
+    }*/
 
 }

@@ -7,25 +7,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pablo.trabajofingrado.CapAmerica.CAInfo;
-import com.pablo.trabajofingrado.CapAmerica.CA_item;
-import com.pablo.trabajofingrado.CapAmerica.DatosCA;
-import com.pablo.trabajofingrado.CapAmerica.MiAdapterCA;
-import com.pablo.trabajofingrado.MainActivity;
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.temaspelisGoogle;
 
 import java.util.ArrayList;
 
-public class Thor_item extends AppCompatActivity {
+public class Thor_item extends AppCompatActivity implements MiAdapterThor.ItemClicListener{
     DatabaseReference mybd;
     ArrayList<String> nombres = new ArrayList<>();
     ArrayList<Integer> imagenActor = new ArrayList<>();
@@ -37,6 +34,7 @@ public class Thor_item extends AppCompatActivity {
     ArrayList<String> duraciones = new ArrayList<>();
     ArrayList<DatosThor> listaPelis = new ArrayList<>();
     static int elementoThor = 0;
+    MiAdapterThor adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +46,32 @@ public class Thor_item extends AppCompatActivity {
         getSupportActionBar().setTitle("Thor");
 
         nombrePelis();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.search_item);
+
+        //final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView)searchItem.getActionView();
+
+        //permite modificar el hint que el EditText muestra por defecto
+        searchView.setQueryHint("Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filtrar(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -93,11 +117,11 @@ public class Thor_item extends AppCompatActivity {
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewThor);
-                    MiAdapterThor adapter = new MiAdapterThor(listaPelis);
+                    adapter = new MiAdapterThor(listaPelis, Thor_item.this);
                     recyclerView.setAdapter(adapter);
                     Intent intent = new Intent(getApplicationContext(), ThorInfo.class);
-
-                    adapter.setOnClickListener(new View.OnClickListener() {
+                    //itemClickedArraylist(listaPelis);
+                    /*adapter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -192,7 +216,7 @@ public class Thor_item extends AppCompatActivity {
                                     break;
                             }
                         }
-                    });
+                    });*/
 
                 }
             }
@@ -202,5 +226,105 @@ public class Thor_item extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void itemClicked(DatosThor datosThor) {
+        int posicion = nombres.indexOf(datosThor.getNombreThor());
+        Intent intent = new Intent(getApplicationContext(), ThorInfo.class);
+        switch (posicion){
+            case 0:
+                elementoThor = 0;
+                intent.putExtra("estado", elementoThor);
+                intent.putExtra("nombre", nombres.get(0));
+                intent.putExtra("foto", fotos.get(0));
+                intent.putExtra("anio", anios.get(0));
+                intent.putExtra("sinopsis", sinop.get(0));
+                intent.putExtra("duracion", duraciones.get(0));
+                intent.putExtra("listaActor", actoresSep.get(0));
+                intent.putExtra("listaPer", personajesSep.get(0));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.chris_hemsworth);
+                imagenActor.add(R.drawable.natalie_portman);
+                imagenActor.add(R.drawable.anthony_hopkins);
+                imagenActor.add(R.drawable.tom_hiddleston);
+                imagenActor.add(R.drawable.stellan_skarsgard);
+                imagenActor.add(R.drawable.colm_feore);
+                imagenActor.add(R.drawable.idris_elba);
+                imagenActor.add(R.drawable.ray_stevenson);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            case 1:
+                elementoThor = 1;
+                intent.putExtra("estado", elementoThor);
+                intent.putExtra("nombre", nombres.get(1));
+                intent.putExtra("foto", fotos.get(1));
+                intent.putExtra("anio", anios.get(1));
+                intent.putExtra("sinopsis", sinop.get(1));
+                intent.putExtra("duracion", duraciones.get(1));
+                intent.putExtra("listaActor", actoresSep.get(1));
+                intent.putExtra("listaPer", personajesSep.get(1));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.chris_hemsworth);
+                imagenActor.add(R.drawable.natalie_portman);
+                imagenActor.add(R.drawable.tom_hiddleston);
+                imagenActor.add(R.drawable.stellan_skarsgard);
+                imagenActor.add(R.drawable.idris_elba);
+                imagenActor.add(R.drawable.christopher_eccleston);
+                imagenActor.add(R.drawable.adewale_akinnuoye);
+                imagenActor.add(R.drawable.kat_dennings);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            case 2:
+                elementoThor = 2;
+                intent.putExtra("estado", elementoThor);
+                intent.putExtra("nombre", nombres.get(2));
+                intent.putExtra("foto", fotos.get(2));
+                intent.putExtra("anio", anios.get(2));
+                intent.putExtra("sinopsis", sinop.get(2));
+                intent.putExtra("duracion", duraciones.get(2));
+                intent.putExtra("listaActor", actoresSep.get(2));
+                intent.putExtra("listaPer", personajesSep.get(2));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.chris_hemsworth);
+                imagenActor.add(R.drawable.tom_hiddleston);
+                imagenActor.add(R.drawable.cate_blanchet);
+                imagenActor.add(R.drawable.idris_elba);
+                imagenActor.add(R.drawable.jeff_goldblum);
+                imagenActor.add(R.drawable.tessa_thomson);
+                imagenActor.add(R.drawable.karl_urban);
+                imagenActor.add(R.drawable.mark_rufalo);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            case 3:
+                elementoThor = 3;
+                intent.putExtra("estado", elementoThor);
+                intent.putExtra("nombre", nombres.get(3));
+                intent.putExtra("foto", fotos.get(3));
+                intent.putExtra("anio", anios.get(3));
+                intent.putExtra("sinopsis", sinop.get(3));
+                intent.putExtra("duracion", duraciones.get(3));
+                intent.putExtra("listaActor", actoresSep.get(3));
+                intent.putExtra("listaPer", personajesSep.get(3));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.chris_hemsworth);
+                imagenActor.add(R.drawable.tom_hiddleston);
+                imagenActor.add(R.drawable.christian_bale);
+                imagenActor.add(R.drawable.tessa_thomson);
+                imagenActor.add(R.drawable.russel_crowe);
+                imagenActor.add(R.drawable.jaimie_alexander);
+                imagenActor.add(R.drawable.chris_prat);
+                imagenActor.add(R.drawable.dave_bautista);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            default:
+                Toast.makeText(this, "Este es default", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        System.out.println("La posicion en Nombres es " + posicion);
     }
 }

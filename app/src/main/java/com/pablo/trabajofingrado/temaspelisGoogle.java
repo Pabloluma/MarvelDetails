@@ -73,7 +73,7 @@ public class temaspelisGoogle extends AppCompatActivity {
     DatabaseReference mybd;
     DatabaseReference db;
 
-    String[] tituloGrup = new String[5];
+    //String[] tituloGrup = new String[6];
     ArrayList<String> nombres = new ArrayList<>();
 
     //Al pulsar atras muestra un toast
@@ -133,7 +133,6 @@ public class temaspelisGoogle extends AppCompatActivity {
                         CharSequence charSequence = nombre;
                         navigationView.getMenu().findItem(R.id.nombre).setTitle(charSequence);
                         navigationView.getMenu().findItem(R.id.nombre).setIcon(R.drawable.baseline_account_circle_24);
-
                     }
                 }
 
@@ -164,10 +163,6 @@ public class temaspelisGoogle extends AppCompatActivity {
                             in.putExtra("usuario",nombre);
                             startActivity(in);
                         }
-                        break;
-
-                    case R.id.aviso:
-                        startActivity(new Intent(temaspelisGoogle.this,aviso_legal.class));
                         break;
 
                     case R.id.logout:
@@ -213,11 +208,15 @@ public class temaspelisGoogle extends AppCompatActivity {
                         String nombre = ds.child("Nombre").getValue().toString();
                         temaspelisGoogle.this.nombres.add(nombre);
                     }
-                    for (int i = 0; i < nombres.size(); i++) {
+
+                    /*for (int i = 0; i < nombres.size(); i++) {
                         tituloGrup[i] = nombres.get(i);
-                    }
+                    }*/
+
                     int[] foto = {R.drawable.spiderman,R.drawable.hulk,R.drawable.capitan,R.drawable.thor,R.drawable.ironman};
-                    CustomList adapter = new CustomList(temaspelisGoogle.this,tituloGrup,foto);
+
+                    //CustomList adapter = new CustomList(temaspelisGoogle.this,tituloGrup,foto);
+                    CustomList adapter = new CustomList(temaspelisGoogle.this,nombres,foto);
                     lista.setAdapter(adapter);
                     lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
