@@ -54,7 +54,6 @@ public class Thor_item extends AppCompatActivity implements MiAdapterThor.ItemCl
 
         final MenuItem searchItem = menu.findItem(R.id.search_item);
 
-        //final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         final SearchView searchView = (SearchView)searchItem.getActionView();
 
         //permite modificar el hint que el EditText muestra por defecto
@@ -62,11 +61,12 @@ public class Thor_item extends AppCompatActivity implements MiAdapterThor.ItemCl
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                adapter.filtrar(query);
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.filtrar(newText);
+                adapter.filtrado(newText);
                 return true;
             }
         });
@@ -117,107 +117,8 @@ public class Thor_item extends AppCompatActivity implements MiAdapterThor.ItemCl
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewThor);
-                    adapter = new MiAdapterThor(listaPelis, Thor_item.this);
+                    adapter = new MiAdapterThor(getApplicationContext(),listaPelis, Thor_item.this);
                     recyclerView.setAdapter(adapter);
-                    Intent intent = new Intent(getApplicationContext(), ThorInfo.class);
-                    //itemClickedArraylist(listaPelis);
-                    /*adapter.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            switch (recyclerView.getChildAdapterPosition(v)){
-                                case 0:
-                                    elementoThor = 0;
-                                    intent.putExtra("estado", elementoThor);
-                                    intent.putExtra("nombre", nombres.get(0));
-                                    intent.putExtra("foto", fotos.get(0));
-                                    intent.putExtra("anio", anios.get(0));
-                                    intent.putExtra("sinopsis", sinop.get(0));
-                                    intent.putExtra("duracion", duraciones.get(0));
-                                    intent.putExtra("listaActor", actoresSep.get(0));
-                                    intent.putExtra("listaPer", personajesSep.get(0));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.chris_hemsworth);
-                                    imagenActor.add(R.drawable.natalie_portman);
-                                    imagenActor.add(R.drawable.anthony_hopkins);
-                                    imagenActor.add(R.drawable.tom_hiddleston);
-                                    imagenActor.add(R.drawable.stellan_skarsgard);
-                                    imagenActor.add(R.drawable.colm_feore);
-                                    imagenActor.add(R.drawable.idris_elba);
-                                    imagenActor.add(R.drawable.ray_stevenson);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-                                case 1:
-                                    elementoThor = 1;
-                                    intent.putExtra("estado", elementoThor);
-                                    intent.putExtra("nombre", nombres.get(1));
-                                    intent.putExtra("foto", fotos.get(1));
-                                    intent.putExtra("anio", anios.get(1));
-                                    intent.putExtra("sinopsis", sinop.get(1));
-                                    intent.putExtra("duracion", duraciones.get(1));
-                                    intent.putExtra("listaActor", actoresSep.get(1));
-                                    intent.putExtra("listaPer", personajesSep.get(1));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.chris_hemsworth);
-                                    imagenActor.add(R.drawable.natalie_portman);
-                                    imagenActor.add(R.drawable.tom_hiddleston);
-                                    imagenActor.add(R.drawable.stellan_skarsgard);
-                                    imagenActor.add(R.drawable.idris_elba);
-                                    imagenActor.add(R.drawable.christopher_eccleston);
-                                    imagenActor.add(R.drawable.adewale_akinnuoye);
-                                    imagenActor.add(R.drawable.kat_dennings);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-                                case 2:
-                                    elementoThor = 2;
-                                    intent.putExtra("estado", elementoThor);
-                                    intent.putExtra("nombre", nombres.get(2));
-                                    intent.putExtra("foto", fotos.get(2));
-                                    intent.putExtra("anio", anios.get(2));
-                                    intent.putExtra("sinopsis", sinop.get(2));
-                                    intent.putExtra("duracion", duraciones.get(2));
-                                    intent.putExtra("listaActor", actoresSep.get(2));
-                                    intent.putExtra("listaPer", personajesSep.get(2));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.chris_hemsworth);
-                                    imagenActor.add(R.drawable.tom_hiddleston);
-                                    imagenActor.add(R.drawable.cate_blanchet);
-                                    imagenActor.add(R.drawable.idris_elba);
-                                    imagenActor.add(R.drawable.jeff_goldblum);
-                                    imagenActor.add(R.drawable.tessa_thomson);
-                                    imagenActor.add(R.drawable.karl_urban);
-                                    imagenActor.add(R.drawable.mark_rufalo);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-                                case 3:
-                                    elementoThor = 3;
-                                    intent.putExtra("estado", elementoThor);
-                                    intent.putExtra("nombre", nombres.get(3));
-                                    intent.putExtra("foto", fotos.get(3));
-                                    intent.putExtra("anio", anios.get(3));
-                                    intent.putExtra("sinopsis", sinop.get(3));
-                                    intent.putExtra("duracion", duraciones.get(3));
-                                    intent.putExtra("listaActor", actoresSep.get(3));
-                                    intent.putExtra("listaPer", personajesSep.get(3));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.chris_hemsworth);
-                                    imagenActor.add(R.drawable.tom_hiddleston);
-                                    imagenActor.add(R.drawable.christian_bale);
-                                    imagenActor.add(R.drawable.tessa_thomson);
-                                    imagenActor.add(R.drawable.russel_crowe);
-                                    imagenActor.add(R.drawable.jaimie_alexander);
-                                    imagenActor.add(R.drawable.chris_prat);
-                                    imagenActor.add(R.drawable.dave_bautista);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-                            }
-                        }
-                    });*/
-
                 }
             }
 
@@ -325,6 +226,5 @@ public class Thor_item extends AppCompatActivity implements MiAdapterThor.ItemCl
                 Toast.makeText(this, "Este es default", Toast.LENGTH_SHORT).show();
                 break;
         }
-        System.out.println("La posicion en Nombres es " + posicion);
     }
 }

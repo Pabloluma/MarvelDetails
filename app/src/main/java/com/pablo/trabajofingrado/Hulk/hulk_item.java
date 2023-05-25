@@ -36,7 +36,7 @@ public class hulk_item extends AppCompatActivity {
     ArrayList <String[]> actoresSep = new ArrayList<>();
     ArrayList <String[]> personajesSep = new ArrayList<>();
     ArrayList<Integer> imagenActor = new ArrayList<>();
-    DatosHulk[] listaPelis = new DatosHulk[2];
+    ArrayList<DatosHulk> listaPelis = new ArrayList<>();
     static int elementoHulk = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class hulk_item extends AppCompatActivity {
 
                     for (int i = 0; i < nombres.size(); i++) {
                         DatosHulk objeto = new DatosHulk(nombres.get(i), anios.get(i), fotos.get(i));
-                        listaPelis[i] = objeto;
+                        listaPelis.add(objeto);
                     }
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewHulk);
                     MiAdapterHulk adapter = new MiAdapterHulk(listaPelis);

@@ -209,13 +209,8 @@ public class temaspelisGoogle extends AppCompatActivity {
                         temaspelisGoogle.this.nombres.add(nombre);
                     }
 
-                    /*for (int i = 0; i < nombres.size(); i++) {
-                        tituloGrup[i] = nombres.get(i);
-                    }*/
-
                     int[] foto = {R.drawable.spiderman,R.drawable.hulk,R.drawable.capitan,R.drawable.thor,R.drawable.ironman};
 
-                    //CustomList adapter = new CustomList(temaspelisGoogle.this,tituloGrup,foto);
                     CustomList adapter = new CustomList(temaspelisGoogle.this,nombres,foto);
                     lista.setAdapter(adapter);
                     lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {

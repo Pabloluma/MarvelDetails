@@ -1,10 +1,14 @@
 package com.pablo.trabajofingrado.Thor;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,37 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder> /*implements View.OnClickListener*/  {
+public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder>{
     private ArrayList<DatosThor> peliculasThor;
-    //private View.OnClickListener listener;
-
-
-
-
     private ArrayList<DatosThor> listaOr;
+    private ArrayList<DatosThor> listarespaldo = new ArrayList<>();
     public ItemClicListener itemClicListener;
+    Context context;
 
     public interface ItemClicListener{
         void itemClicked(DatosThor datosThor);
-        //void itemClickedArraylist(ArrayList<DatosThor> datosThors);
     }
 
-   public MiAdapterThor(ArrayList<DatosThor> peliculasThor, ItemClicListener itemClicListener) {
-       this.peliculasThor = peliculasThor;
-       this.itemClicListener = itemClicListener;
+   public MiAdapterThor(Context context,ArrayList<DatosThor> peliculasThor, ItemClicListener itemClicListener) {
+        this.context = context;
+        this.peliculasThor = peliculasThor;
+        this.itemClicListener = itemClicListener;
 
 
        listaOr = new ArrayList<>();
        listaOr.addAll(peliculasThor);
-
+       listarespaldo.addAll(peliculasThor);
    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_spiderman, parent, false);
-       // view.setOnClickListener(this);
         return new ViewHolder(view);
-
     }
     @Override
     public void onBindViewHolder(@NonNull MiAdapterThor.ViewHolder holder, int position) {
@@ -60,8 +59,8 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
                 itemClicListener.itemClicked(itemModal);
             }
         });
-
     }
+
     @Override
     public int getItemCount() {
         return peliculasThor.size();
@@ -88,10 +87,16 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
            peliculasThor.addAll(listaOr);
        }else{
            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-               List<DatosThor> coleccion = peliculasThor.stream().filter(i->i.getNombreThor()
+               List<DatosThor> coleccion = peliculasThor.stream().filter(i -> i.getNombreThor()
                        .toLowerCase().contains(textoBuscado.toLowerCase())).collect(Collectors.toList());
-               peliculasThor.clear();
-               peliculasThor.addAll(coleccion);
+               if (coleccion.size() == 0) {
+                   peliculasThor.clear();
+                   peliculasThor.addAll(listarespaldo);
+                   Toast.makeText(context, "No hay registros", Toast.LENGTH_SHORT).show();
+               } else {
+                   peliculasThor.clear();
+                   peliculasThor.addAll(coleccion);
+               }
            }else {
                for (DatosThor d: peliculasThor) {
                    if(d.getNombreThor().toLowerCase().contains(textoBuscado.toLowerCase())) {
@@ -102,19 +107,25 @@ public class MiAdapterThor extends RecyclerView.Adapter<MiAdapterThor.ViewHolder
        }
        notifyDataSetChanged();
     }
+    public void filtrado(String textoBuscado){
+        if(textoBuscado.trim().length() == 0){
+            peliculasThor.clear();
+            peliculasThor.addAll(listaOr);
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<DatosThor> coleccion = peliculasThor.stream().filter(i -> i.getNombreThor()
+                        .toLowerCase().contains(textoBuscado.toLowerCase())).collect(Collectors.toList());
+                peliculasThor.clear();
+                peliculasThor.addAll(coleccion);
 
-
-
-
-   /* public void setOnClickListener(View.OnClickListener listener){
-        this.listener = listener;
-    }
-    @Override
-    public void onClick(View v) {
-        if (listener != null){
-            listener.onClick(v);
+            }else {
+                for (DatosThor d: peliculasThor) {
+                    if(d.getNombreThor().toLowerCase().contains(textoBuscado.toLowerCase())) {
+                        peliculasThor.add(d);
+                    }
+                }
+            }
         }
-
-    }*/
-
+        notifyDataSetChanged();
+    }
 }

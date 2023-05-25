@@ -13,13 +13,15 @@ import com.pablo.trabajofingrado.R;
 import com.pablo.trabajofingrado.Spiderman.DatosSpiderman;
 import com.pablo.trabajofingrado.Spiderman.MiAdapterSpiderman;
 
+import java.util.ArrayList;
+
 
 public class MiAdapterHulk extends RecyclerView.Adapter<MiAdapterHulk.ViewHolder> implements View.OnClickListener {
-    private DatosHulk[] discos;
+    private ArrayList<DatosHulk> peliculasHulk;
     private View.OnClickListener listener;
 
-    public MiAdapterHulk(DatosHulk[] discos) {
-        this.discos = discos;
+    public MiAdapterHulk(ArrayList<DatosHulk> peliculasHulk) {
+        this.peliculasHulk = peliculasHulk;
     }
     //Clase ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -48,14 +50,14 @@ public class MiAdapterHulk extends RecyclerView.Adapter<MiAdapterHulk.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MiAdapterHulk.ViewHolder holder, int position) {
-        holder.nombreHulk.setText(discos[position].getNombreHulk());
-        holder.descripcionHulk.setText(discos[position].getDescripcionHulk());
-        holder.logoHulk.setImageResource(discos[position].getLogoHulk());
+        holder.nombreHulk.setText(peliculasHulk.get(position).getNombreHulk());
+        holder.descripcionHulk.setText(peliculasHulk.get(position).getDescripcionHulk());
+        holder.logoHulk.setImageResource(peliculasHulk.get(position).getLogoHulk());
     }
 
     @Override
     public int getItemCount() {
-        return discos.length;
+        return peliculasHulk.size();
     }
 
     public void setOnClickListener(View.OnClickListener listener){

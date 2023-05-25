@@ -13,12 +13,14 @@ import com.pablo.trabajofingrado.Hulk.DatosHulk;
 import com.pablo.trabajofingrado.Hulk.MiAdapterHulk;
 import com.pablo.trabajofingrado.R;
 
+import java.util.ArrayList;
+
 public class MiAdapterCA extends RecyclerView.Adapter<MiAdapterCA.ViewHolder> implements View.OnClickListener {
-    private DatosCA[] discos;
+    private ArrayList<DatosCA> peliculasCA;
     private View.OnClickListener listener;
 
-    public MiAdapterCA(DatosCA[] discos) {
-        this.discos = discos;
+    public MiAdapterCA(ArrayList<DatosCA> peliculasCA) {
+        this.peliculasCA = peliculasCA;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -46,14 +48,14 @@ public class MiAdapterCA extends RecyclerView.Adapter<MiAdapterCA.ViewHolder> im
 
     @Override
     public void onBindViewHolder(@NonNull MiAdapterCA.ViewHolder holder, int position) {
-        holder.nombreCA.setText(discos[position].getNombreCA());
-        holder.descripcionCA.setText(discos[position].getDescripcionCA());
-        holder.logoCA.setImageResource(discos[position].getLogoCA());
+        holder.nombreCA.setText(peliculasCA.get(position).getNombreCA());
+        holder.descripcionCA.setText(peliculasCA.get(position).getDescripcionCA());
+        holder.logoCA.setImageResource(peliculasCA.get(position).getLogoCA());
     }
 
     @Override
     public int getItemCount() {
-        return discos.length;
+        return peliculasCA.size();
     }
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;

@@ -16,8 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.ironman.IM_item;
-import com.pablo.trabajofingrado.temaspelisGoogle;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class CA_item extends AppCompatActivity {
     ArrayList<Integer> imagenActor = new ArrayList<>();
     ArrayList <String[]> actoresSep = new ArrayList<>();
     ArrayList <String[]> personajesSep = new ArrayList<>();
-    DatosCA[] listaPelis = new DatosCA[3];
+    ArrayList<DatosCA> listaPelis = new ArrayList<>();
     static int elementoCA = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,7 @@ public class CA_item extends AppCompatActivity {
 
                     for (int i = 0; i < nombres.size(); i++) {
                         DatosCA objeto = new DatosCA(nombres.get(i), anios.get(i), fotos.get(i));
-                        listaPelis[i] = objeto;
+                        listaPelis.add(objeto);
                     }
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewCA);
                     MiAdapterCA adapter = new MiAdapterCA(listaPelis);
