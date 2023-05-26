@@ -82,6 +82,9 @@ public class login extends AppCompatActivity {
         cor = campoCorUsu.getText().toString().trim();
         con = campoPasswd.getText().toString().trim();
         String corr = cor.toLowerCase();
+        
+        //Opcion1: Es la de ir comprobando de base de datos
+        //Opcion 2: Metodo
 
         if (usu.isEmpty() || nom.isEmpty() || ape.isEmpty() || cor.isEmpty() || con.isEmpty()) {
             Toast.makeText(login.this, "Debes rellenar Todos los campos", Toast.LENGTH_SHORT).show();
@@ -96,38 +99,42 @@ public class login extends AppCompatActivity {
                     if (snapshot.exists()) {
                         Toast.makeText(login.this, "El correo ya existe", Toast.LENGTH_SHORT).show();
                     } else {
-                        Query queryUser = bd.orderByChild("username").equalTo(usu);
-                        queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    Toast.makeText(login.this, "El Usuario ya existe", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (con.length() < 6) {
-                                        Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        auth.createUserWithEmailAndPassword(corr,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(cor).matches()){
 
-                                            }
-                                        });
-                                        user.setUsername(usu);
-                                        user.setNombre(nom);
-                                        user.setApellido(ape);
-                                        user.setEmail(corr);
-                                        bd.child(String.valueOf(num + 1)).setValue(user);
-                                        finish();
-                                        Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Query queryUser = bd.orderByChild("username").equalTo(usu);
+                            queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        Toast.makeText(login.this, "El Usuario ya existe", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        if (con.length() < 6) {
+                                            Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            auth.createUserWithEmailAndPassword(corr,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                                }
+                                            });
+                                            user.setUsername(usu);
+                                            user.setNombre(nom);
+                                            user.setApellido(ape);
+                                            user.setEmail(corr);
+                                            bd.child(String.valueOf(num + 1)).setValue(user);
+                                            finish();
+                                            Toast.makeText(getApplicationContext(), "Se ha insertado", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
                 }
 
