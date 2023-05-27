@@ -200,7 +200,6 @@ public class IM_item extends AppCompatActivity implements MiAdapterIM.ItemClicLi
                 startActivity(intent);
                 break;
             default:
-                Toast.makeText(this, "Este es default", Toast.LENGTH_SHORT).show();
                 break;
         }
 

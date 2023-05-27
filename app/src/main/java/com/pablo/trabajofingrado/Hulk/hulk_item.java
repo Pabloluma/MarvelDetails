@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +24,14 @@ import com.pablo.trabajofingrado.R;
 import com.pablo.trabajofingrado.Hulk.MiAdapterHulk;
 import com.pablo.trabajofingrado.Hulk.HulkInfo;
 import com.pablo.trabajofingrado.Thor.Thor_item;
+import com.pablo.trabajofingrado.ironman.DatosIM;
+import com.pablo.trabajofingrado.ironman.MiAdapterIM;
 import com.pablo.trabajofingrado.temaspelisGoogle;
 
 
 import java.util.ArrayList;
 
-public class hulk_item extends AppCompatActivity {
+public class hulk_item extends AppCompatActivity implements MiAdapterHulk.ItemClicListener {
     DatabaseReference mybd;
     ArrayList<String> nombres = new ArrayList<>();
     ArrayList<String> anios = new ArrayList<>();
@@ -38,6 +43,7 @@ public class hulk_item extends AppCompatActivity {
     ArrayList<Integer> imagenActor = new ArrayList<>();
     ArrayList<DatosHulk> listaPelis = new ArrayList<>();
     static int elementoHulk = 0;
+    MiAdapterHulk adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,31 @@ public class hulk_item extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.search_item);
+        final SearchView searchView = (SearchView)searchItem.getActionView();
+
+        //permite modificar el hint que el EditText muestra por defecto
+        searchView.setQueryHint("Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filtrar(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filtrado(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
     public void nombrePelis(){
         mybd = FirebaseDatabase.getInstance().getReference();
@@ -91,63 +122,8 @@ public class hulk_item extends AppCompatActivity {
                         listaPelis.add(objeto);
                     }
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewHulk);
-                    MiAdapterHulk adapter = new MiAdapterHulk(listaPelis);
+                    adapter = new MiAdapterHulk(getApplicationContext(),listaPelis, hulk_item.this);
                     recyclerView.setAdapter(adapter);
-                    Intent intent = new Intent(getApplicationContext(), HulkInfo.class);
-
-                    adapter.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            switch (recyclerView.getChildAdapterPosition(v)){
-                                case 0:
-                                    elementoHulk = 0;
-                                    intent.putExtra("estado", elementoHulk);
-                                    intent.putExtra("nombre", nombres.get(0));
-                                    intent.putExtra("foto", fotos.get(0));
-                                    intent.putExtra("anio", anios.get(0));
-                                    intent.putExtra("sinopsis", sinop.get(0));
-                                    intent.putExtra("duracion", duraciones.get(0));
-                                    intent.putExtra("listaActor", actoresSep.get(0));
-                                    intent.putExtra("listaPer", personajesSep.get(0));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.sam_elliot);
-                                    imagenActor.add(R.drawable.eric_bana);
-                                    imagenActor.add(R.drawable.nick_nolte);
-                                    imagenActor.add(R.drawable.jennifer_connelly);
-                                    imagenActor.add(R.drawable.josh_lucas);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-                                case 1:
-                                    elementoHulk = 1;
-                                    intent.putExtra("estado", elementoHulk);
-                                    intent.putExtra("nombre", nombres.get(1));
-                                    intent.putExtra("foto", fotos.get(1));
-                                    intent.putExtra("anio", anios.get(1));
-                                    intent.putExtra("sinopsis", sinop.get(1));
-                                    intent.putExtra("duracion", duraciones.get(1));
-                                    intent.putExtra("listaActor", actoresSep.get(1));
-                                    intent.putExtra("listaPer", personajesSep.get(1));
-                                    imagenActor.clear();
-                                    imagenActor.add(R.drawable.william_hurt);
-                                    imagenActor.add(R.drawable.edwart_noton);
-                                    imagenActor.add(R.drawable.liv_tyler);
-                                    imagenActor.add(R.drawable.tim_roth);
-                                    imagenActor.add(R.drawable.tim_blake);
-                                    imagenActor.add(R.drawable.ty_burrell);
-                                    imagenActor.add(R.drawable.christina_cabot);
-                                    imagenActor.add(R.drawable.peter_mensah);
-                                    imagenActor.add(R.drawable.lou_ferrigno);
-                                    imagenActor.add(R.drawable.paul_soles);
-                                    imagenActor.add(R.drawable.debora_nascimiento);
-                                    intent.putExtra("fotosActores", imagenActor);
-                                    startActivity(intent);
-                                    break;
-
-                            }
-                        }
-                    });
-
                 }
             }
 
@@ -156,5 +132,59 @@ public class hulk_item extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public void itemClicked(DatosHulk datosHulk) {
+        int posicion = nombres.indexOf(datosHulk.getNombreHulk());
+        Intent intent = new Intent(getApplicationContext(), HulkInfo.class);
+        switch (posicion){
+            case 0:
+                elementoHulk = 0;
+                intent.putExtra("estado", elementoHulk);
+                intent.putExtra("nombre", nombres.get(0));
+                intent.putExtra("foto", fotos.get(0));
+                intent.putExtra("anio", anios.get(0));
+                intent.putExtra("sinopsis", sinop.get(0));
+                intent.putExtra("duracion", duraciones.get(0));
+                intent.putExtra("listaActor", actoresSep.get(0));
+                intent.putExtra("listaPer", personajesSep.get(0));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.sam_elliot);
+                imagenActor.add(R.drawable.eric_bana);
+                imagenActor.add(R.drawable.nick_nolte);
+                imagenActor.add(R.drawable.jennifer_connelly);
+                imagenActor.add(R.drawable.josh_lucas);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            case 1:
+                elementoHulk = 1;
+                intent.putExtra("estado", elementoHulk);
+                intent.putExtra("nombre", nombres.get(1));
+                intent.putExtra("foto", fotos.get(1));
+                intent.putExtra("anio", anios.get(1));
+                intent.putExtra("sinopsis", sinop.get(1));
+                intent.putExtra("duracion", duraciones.get(1));
+                intent.putExtra("listaActor", actoresSep.get(1));
+                intent.putExtra("listaPer", personajesSep.get(1));
+                imagenActor.clear();
+                imagenActor.add(R.drawable.william_hurt);
+                imagenActor.add(R.drawable.edwart_noton);
+                imagenActor.add(R.drawable.liv_tyler);
+                imagenActor.add(R.drawable.tim_roth);
+                imagenActor.add(R.drawable.tim_blake);
+                imagenActor.add(R.drawable.ty_burrell);
+                imagenActor.add(R.drawable.christina_cabot);
+                imagenActor.add(R.drawable.peter_mensah);
+                imagenActor.add(R.drawable.lou_ferrigno);
+                imagenActor.add(R.drawable.paul_soles);
+                imagenActor.add(R.drawable.debora_nascimiento);
+                intent.putExtra("fotosActores", imagenActor);
+                startActivity(intent);
+                break;
+            default:
+                Toast.makeText(this, "Hay que añadir uno nuevo al switch", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }
