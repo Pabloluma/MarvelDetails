@@ -15,16 +15,8 @@ import java.util.ArrayList;
 
 public class CustomList extends ArrayAdapter<String> {
     private final Activity contexto;
-    //private final String[] grupo;
     private final ArrayList<String> grupo;
     private final int[] logo;
-
-//    public CustomList(Activity contexto, String[] grupo,int[] logo) {
-//        super(contexto,R.layout.cardview_temas,grupo);
-//        this.contexto = contexto;
-//        this.grupo = grupo;
-//        this.logo = logo;
-//    }
 
         public CustomList(Activity contexto, ArrayList<String> grupo,int[] logo) {
             super(contexto,R.layout.cardview_temas,grupo);
@@ -43,7 +35,6 @@ public class CustomList extends ArrayAdapter<String> {
         TextView grupos = fila.findViewById(R.id.textView3);
         ImageView logos = fila.findViewById(R.id.imageView3);
 
-        //grupos.setText(grupo[position]);
         grupos.setText(grupo.get(position));
         logos.setImageResource(logo[position]);
 

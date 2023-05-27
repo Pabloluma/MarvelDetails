@@ -83,8 +83,8 @@ public class login extends AppCompatActivity {
         con = campoPasswd.getText().toString().trim();
         String corr = cor.toLowerCase();
         
-        //Opcion1: Es la de ir comprobando de base de datos
-        //Opcion 2: Metodo
+        //Opcion1: Es la de ir comprobando de base de datos(actual)
+        //Opcion 2: Metodo de firebase createUserWithEmailAndPassword
 
         if (usu.isEmpty() || nom.isEmpty() || ape.isEmpty() || cor.isEmpty() || con.isEmpty()) {
             Toast.makeText(login.this, "Debes rellenar Todos los campos", Toast.LENGTH_SHORT).show();

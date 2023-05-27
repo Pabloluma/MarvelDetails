@@ -36,7 +36,6 @@ public class ThorInfo extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     StorageReference reference;
-
     Button botondesc;
     TextView tit;
     TextView year;

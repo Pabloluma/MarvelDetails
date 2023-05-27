@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 public class MiAdapterHulk extends RecyclerView.Adapter<MiAdapterHulk.ViewHolder>/* implements View.OnClickListener */{
     private ArrayList<DatosHulk> peliculasHulk;
-    //private View.OnClickListener listener;
     private ArrayList<DatosHulk> listaOr;
     private ArrayList<DatosHulk> listarespaldo = new ArrayList<>();
     public ItemClicListener itemClicListener;
@@ -46,7 +45,6 @@ public class MiAdapterHulk extends RecyclerView.Adapter<MiAdapterHulk.ViewHolder
     @Override
     public MiAdapterHulk.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_spiderman, parent, false);
-        //view.setOnClickListener(this);
         return new MiAdapterHulk.ViewHolder(view);
 
     }

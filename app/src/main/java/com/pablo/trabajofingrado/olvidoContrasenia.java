@@ -25,9 +25,6 @@ import java.util.ArrayList;
 
 public class olvidoContrasenia extends AppCompatActivity {
     Button botonsigu;
-    /*Button boton2;
-    TextView text1;
-    TextView text2;*/
     TextView text3;
     String mail = "";
     FirebaseAuth auth;

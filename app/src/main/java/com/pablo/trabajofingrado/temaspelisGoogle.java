@@ -72,8 +72,6 @@ public class temaspelisGoogle extends AppCompatActivity {
     StorageReference reference;
     DatabaseReference mybd;
     DatabaseReference db;
-
-    //String[] tituloGrup = new String[6];
     ArrayList<String> nombres = new ArrayList<>();
 
     //Al pulsar atras muestra un toast
