@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdapterActores extends RecyclerView.Adapter<AdapterActores.ViewHolder> implements View.OnClickListener{
+public class AdapterActores extends RecyclerView.Adapter<AdapterActores.ViewHolder>{
     private ArrayList<DatosActores> datosActores;
-    private View.OnClickListener listener;
 
     public AdapterActores(ArrayList<DatosActores> datosActores) {
         this.datosActores = datosActores;
@@ -37,7 +36,6 @@ public class AdapterActores extends RecyclerView.Adapter<AdapterActores.ViewHold
     @Override
     public AdapterActores.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actores, parent, false);
-        view.setOnClickListener(this);
         return new AdapterActores.ViewHolder(view);
 
     }
@@ -52,17 +50,5 @@ public class AdapterActores extends RecyclerView.Adapter<AdapterActores.ViewHold
     @Override
     public int getItemCount() {
         return datosActores.size();
-    }
-
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener = listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (listener != null){
-            listener.onClick(v);
-        }
-
     }
 }

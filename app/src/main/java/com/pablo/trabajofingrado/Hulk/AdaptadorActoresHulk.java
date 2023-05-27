@@ -10,15 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.Thor.AdapterActoresThor;
-import com.pablo.trabajofingrado.Thor.DatosActoresThor;
 
 import java.util.ArrayList;
 
 
-public class AdaptadorActoresHulk extends RecyclerView.Adapter<AdaptadorActoresHulk.ViewHolder> implements View.OnClickListener{
+public class AdaptadorActoresHulk extends RecyclerView.Adapter<AdaptadorActoresHulk.ViewHolder>{
     private ArrayList<DatosActoresHulk> datosActores;
-    private View.OnClickListener listener;
 
     public AdaptadorActoresHulk(ArrayList<DatosActoresHulk> datosActores) {
         this.datosActores = datosActores;
@@ -42,7 +39,6 @@ public class AdaptadorActoresHulk extends RecyclerView.Adapter<AdaptadorActoresH
     @Override
     public AdaptadorActoresHulk.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actores, parent, false);
-        view.setOnClickListener(this);
         return new AdaptadorActoresHulk.ViewHolder(view);
 
     }
@@ -57,17 +53,5 @@ public class AdaptadorActoresHulk extends RecyclerView.Adapter<AdaptadorActoresH
     @Override
     public int getItemCount() {
         return datosActores.size();
-    }
-
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener = listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (listener != null){
-            listener.onClick(v);
-        }
-
     }
 }

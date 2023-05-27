@@ -12,10 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.Spiderman.DatosSpiderman;
-import com.pablo.trabajofingrado.Spiderman.MiAdapterSpiderman;
-import com.pablo.trabajofingrado.ironman.DatosIM;
-import com.pablo.trabajofingrado.ironman.MiAdapterIM;
 
 import java.util.ArrayList;
 import java.util.List;

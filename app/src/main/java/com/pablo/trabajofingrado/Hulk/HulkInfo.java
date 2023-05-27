@@ -27,8 +27,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pablo.trabajofingrado.R;
-import com.pablo.trabajofingrado.Thor.AdapterActoresThor;
-import com.pablo.trabajofingrado.Thor.DatosActoresThor;
 
 import java.util.ArrayList;
 

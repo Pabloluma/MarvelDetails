@@ -21,12 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pablo.trabajofingrado.R;
 
-import com.pablo.trabajofingrado.Hulk.MiAdapterHulk;
-import com.pablo.trabajofingrado.Hulk.HulkInfo;
-import com.pablo.trabajofingrado.Thor.Thor_item;
-import com.pablo.trabajofingrado.ironman.DatosIM;
-import com.pablo.trabajofingrado.ironman.MiAdapterIM;
-import com.pablo.trabajofingrado.temaspelisGoogle;
 
 
 import java.util.ArrayList;

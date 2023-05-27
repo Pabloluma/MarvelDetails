@@ -13,9 +13,8 @@ import com.pablo.trabajofingrado.R;
 
 import java.util.ArrayList;
 
-public class AdapterActoresThor extends RecyclerView.Adapter<AdapterActoresThor.ViewHolder> implements View.OnClickListener {
+public class AdapterActoresThor extends RecyclerView.Adapter<AdapterActoresThor.ViewHolder>{
     private ArrayList<DatosActoresThor> datosActores;
-    private View.OnClickListener listener;
 
     public AdapterActoresThor(ArrayList<DatosActoresThor> datosActores) {
         this.datosActores = datosActores;
@@ -39,7 +38,6 @@ public class AdapterActoresThor extends RecyclerView.Adapter<AdapterActoresThor.
     @Override
     public AdapterActoresThor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actores, parent, false);
-        view.setOnClickListener(this);
         return new AdapterActoresThor.ViewHolder(view);
 
     }
@@ -55,18 +53,5 @@ public class AdapterActoresThor extends RecyclerView.Adapter<AdapterActoresThor.
     public int getItemCount() {
         return datosActores.size();
     }
-
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener = listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (listener != null){
-            listener.onClick(v);
-        }
-
-    }
-
 }
 
