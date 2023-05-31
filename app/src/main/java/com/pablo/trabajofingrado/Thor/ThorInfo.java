@@ -81,12 +81,12 @@ public class ThorInfo extends AppCompatActivity {
         Intent intent = getIntent();
         int elementoThor = intent.getIntExtra("estado", -1);
         if(elementoThor == 0){
-            reference = storageReference.child("CA/Capitan America_el primer vengador.mp4");
+            reference = storageReference.child("Thor/Thor.mp4");
             reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Capitan America_el primer vengador.mp4",url);
+                    descargar("Thor.mp4",url);
                     Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
 
                 }

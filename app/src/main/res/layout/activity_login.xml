@@ -85,7 +85,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/button_main"
             android:onClick="alta"
-            android:text="REGISTRARSE"
+            android:text="registrar"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

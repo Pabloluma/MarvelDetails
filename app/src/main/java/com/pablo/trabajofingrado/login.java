@@ -90,14 +90,16 @@ public class login extends AppCompatActivity {
             Toast.makeText(login.this, "Debes rellenar Todos los campos", Toast.LENGTH_SHORT).show();
         } else {
             if (cor.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(cor).matches()) {
-                Toast.makeText(login.this, "Pon una direccion de correo electrónico Válida", Toast.LENGTH_SHORT).show();
+                campoCorUsu.setError("Pon una direccion de correo electrónico válida");
+                //Toast.makeText(login.this, "Pon una direccion de correo electrónico Válida", Toast.LENGTH_SHORT).show();
             }
             Query queryCor = bd.orderByChild("email").equalTo(corr);
             queryCor.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        Toast.makeText(login.this, "El correo ya existe", Toast.LENGTH_SHORT).show();
+                        campoCorUsu.setError("El correo ya existe");
+                        //Toast.makeText(login.this, "El correo ya existe", Toast.LENGTH_SHORT).show();
                     } else {
                         if (!Patterns.EMAIL_ADDRESS.matcher(cor).matches()){
 
@@ -107,10 +109,12 @@ public class login extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.exists()) {
-                                        Toast.makeText(login.this, "El Usuario ya existe", Toast.LENGTH_SHORT).show();
+                                        campoNomUsu.setError("El Usuario ya existe");
+                                        //Toast.makeText(login.this, "El Usuario ya existe", Toast.LENGTH_SHORT).show();
                                     } else {
                                         if (con.length() < 6) {
-                                            Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
+                                            campoPasswd.setError("La contraseña debe tener como mínimo 6 caracteres");
+                                            //Toast.makeText(login.this, "La contraseña debe tener como mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
                                         } else {
                                             auth.createUserWithEmailAndPassword(corr,con).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                 @Override
