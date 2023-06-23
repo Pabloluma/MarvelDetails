@@ -86,8 +86,8 @@ public class ThorInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Thor.mp4",url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Thor/Thor.mp4",url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/Thor", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -102,8 +102,8 @@ public class ThorInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Thor_ El Mundo Oscuro.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Thor/Thor_El Mundo Oscuro.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/Thor", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -117,8 +117,8 @@ public class ThorInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Thor_ Ragnarok.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Thor/Thor_Ragnarok.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/Thor", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -132,8 +132,8 @@ public class ThorInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Thor_ Love and Thunder.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Thor/Thor_Love and Thunder.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/Thor", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

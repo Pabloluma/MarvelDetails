@@ -88,8 +88,8 @@ public class HulkInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("hulk.mp4",url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Hulk/hulk.mp4",url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/hulk", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -104,8 +104,8 @@ public class HulkInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("The incredible Hulk.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/Hulk/The incredible Hulk.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/hulk", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

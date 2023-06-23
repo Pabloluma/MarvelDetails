@@ -93,8 +93,8 @@ public class IMInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Iron Man.mp4",url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/IronMan/Iron Man.mp4",url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/IronMan", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -109,8 +109,8 @@ public class IMInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Iron Man 2.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/IronMan/Iron Man 2.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/IronMan", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -124,8 +124,8 @@ public class IMInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Iron Man 3.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/IronMan/Iron Man 3.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/IronMan", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

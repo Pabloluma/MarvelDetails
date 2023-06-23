@@ -50,7 +50,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements BiometricCallback {
     EditText campoCorUsu;
     EditText campoPasswdUsu;
-    Button boton,botonreghu,botonhu,inicio /*,recuperar*/;
+    Button boton,botonreghu,botonhu,inicio;
     TextView tienes, noCuen, recuperar;
     ImageView imageGoogle;
     Spinner spinner;
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
     public void seleccionarInicio(){
         ArrayList<String> lista = new ArrayList<>();
         lista.add("Correo y Contraseña");
-        lista.add("Biometricamente");
+        lista.add("Biométricamente");
         ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_dropdown_item_1line, lista);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
                 BiometricManager biometricManager  = BiometricManager.from(MainActivity.this);
                 int auth = biometricManager.canAuthenticate();
 
-                if(spinner.getSelectedItem().toString().equalsIgnoreCase("Biometricamente")){
+                if(spinner.getSelectedItem().toString().equalsIgnoreCase("Biométricamente")){
                     if(auth == 0 || auth == 11){
                         tienes.setVisibility(View.INVISIBLE);
                         imageGoogle.setVisibility(View.INVISIBLE);
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements BiometricCallback
                 if (networkInfo != null && networkInfo.isConnected()) {
                     new com.an.biometric.BiometricManager.BiometricBuilder(MainActivity.this)
                             .setTitle("Logueate")
-                            .setSubtitle("Pon la Huella")
+                            .setSubtitle("Pon la huella")
                             .setDescription("")
                             .setNegativeButtonText("Cancelar")
                             .build()

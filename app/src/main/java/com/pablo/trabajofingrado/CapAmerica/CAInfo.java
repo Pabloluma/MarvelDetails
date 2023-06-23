@@ -88,8 +88,8 @@ public class CAInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Capitan America_el primer vengador.mp4",url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/CA/Capitan América_El primer vengador.mp4",url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/CA", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -104,8 +104,8 @@ public class CAInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Capitán América_ El Soldado de Invierno.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/CA/Capitán América_El Soldado de Invierno.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/CA", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -119,8 +119,8 @@ public class CAInfo extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
-                    descargar("Capitán América_ Civil War.mp4", url);
-                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta en la carpeta Movies", Toast.LENGTH_SHORT).show();
+                    descargar("MD/CA/Capitán América_Civil War.mp4", url);
+                    Toast.makeText(getApplicationContext(), "La descarga ha sido correcta dentro de MD/CA", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
